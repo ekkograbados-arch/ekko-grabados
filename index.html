@@ -3,275 +3,187 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Personalizador de Grabado Láser - Prototipo</title>
+    <title>Personalizador Grabado Láser</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.1/fabric.min.js"></script>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background: #f4f4f4;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0,0,0,0.1);
-        }
-        h1 { text-align: center; color: #333; }
-        .main {
-            display: flex;
-            gap: 30px;
-            flex-wrap: wrap;
-        }
-        .canvas-container {
-            border: 2px solid #ddd;
-            background: #fff;
-            position: relative;
-        }
-        .controls {
-            min-width: 280px;
-        }
-        button, input, select {
-            margin: 8px 0;
-            padding: 10px;
-            width: 100%;
-            border-radius: 5px;
-        }
-        button {
-            background: #007bff;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-        button:hover { background: #0056b3; }
-        .preview {
-            text-align: center;
-            margin-top: 20px;
-        }
-        #canvas {
-            border: 1px solid #ccc;
-        }
+        body { font-family: Arial, sans-serif; margin:0; padding:20px; background:#f4f4f4; }
+        .container { max-width:1300px; margin:0 auto; background:white; padding:20px; border-radius:10px; box-shadow:0 0 15px rgba(0,0,0,0.1); }
+        h1 { text-align:center; color:#333; }
+        .tabs { display:flex; gap:10px; justify-content:center; margin:20px 0; }
+        .tab { padding:12px 25px; background:#eee; border:none; border-radius:8px 8px 0 0; cursor:pointer; }
+        .tab.active { background:#007bff; color:white; }
+        .main { display:flex; gap:25px; flex-wrap:wrap; }
+        .canvas-wrapper { text-align:center; }
+        button, input, select { margin:5px 0; padding:10px; border-radius:5px; }
+        button { background:#007bff; color:white; border:none; cursor:pointer; }
+        button:hover { background:#0056b3; }
+        .controls { min-width:280px; }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>🎨 Personalizador de Grabado Láser</h1>
-        <p style="text-align:center;">Prototipo básico - Medalla de ejemplo</p>
-        
+
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab(0)">Frente</button>
+            <button class="tab" onclick="switchTab(1)">Dorso</button>
+        </div>
+
         <div class="main">
-            <!-- Canvas -->
-            <div>
-                <div class="canvas-container">
-                    <canvas id="canvas" width="600" height="600"></canvas>
-                </div>
-                <div class="preview">
-                    <button onclick="exportDesign()">📥 Descargar diseño final (PNG)</button>
-                </div>
+            <div class="canvas-wrapper">
+                <canvas id="canvas" width="550" height="550" style="border:2px solid #ccc; border-radius:8px;"></canvas>
             </div>
 
-            <!-- Controls -->
             <div class="controls">
-                <h2>Controles</h2>
-                
-                <!-- Subir Mockup -->
-                <label>1. Cargar Mockup de Medalla (fondo)</label><br>
-                <input type="file" id="mockupUpload" accept="image/*">
-                
-                <!-- Subir Imagen para grabado -->
-                <label>2. Subir Imagen / Logo</label><br>
+                <h3>Producto</h3>
+                <select id="productSelect" onchange="loadMockup()">
+                    <option value="medalla-redonda">Medalla Redonda</option>
+                    <option value="medalla-ovalada">Medalla Ovalada</option>
+                    <option value="mate-acero">Mate de Acero</option>
+                </select>
+
+                <h3>Subir Imagen/Logo</h3>
                 <input type="file" id="imageUpload" accept="image/*">
-                
-                <!-- Texto -->
-                <label>3. Agregar Texto</label><br>
+
+                <h3>Agregar Texto</h3>
                 <input type="text" id="textInput" placeholder="Escribe tu frase...">
                 <select id="fontSelect">
                     <option value="Arial">Arial</option>
                     <option value="Times New Roman">Times New Roman</option>
-                    <option value="Courier New">Courier New</option>
                     <option value="Georgia">Georgia</option>
-                    <option value="Verdana">Verdana</option>
+                    <option value="Impact">Impact</option>
                 </select>
                 <button onclick="addText()">➕ Agregar Texto</button>
-                
-                <!-- QR -->
-                <label>4. Agregar QR (enlace)</label><br>
-                <input type="text" id="qrLink" placeholder="https://tudominio.com">
+
+                <h3>Plantillas Decorativas</h3>
+                <button onclick="addTemplate('heart')">❤️ Corazón</button>
+                <button onclick="addTemplate('flower')">🌸 Flor</button>
+                <button onclick="addTemplate('star')">⭐ Estrella</button>
+
+                <h3>QR Code</h3>
+                <input type="text" id="qrLink" placeholder="https://tuenlace.com">
                 <button onclick="addQR()">📱 Generar QR</button>
-                
+
                 <hr>
-                
-                <button onclick="clearCanvas()">🗑️ Limpiar todo</button>
-                <button onclick="toggleGrayscale()" style="background:#6c757d;">🌗 Modo Escala de Grises (toggle)</button>
-                
-                <p><strong>💡 Instrucciones:</strong></p>
-                <ul style="font-size:0.9em;">
-                    <li>Arrastra y suelta elementos</li>
-                    <li>Selecciona un objeto para borrarlo con Supr</li>
-                    <li>Usa las esquinas para rotar y escalar</li>
-                </ul>
+                <button onclick="applyGrayscale()">🌫️ Convertir todo a Escala de Grises</button>
+                <button onclick="deleteSelected()">🗑️ Borrar Seleccionado</button>
+                <button onclick="clearCanvas()">🗑️ Limpiar Todo</button>
+                <button onclick="exportDesign()" style="background:#28a745;">📥 Descargar Diseño (PNG)</button>
             </div>
         </div>
     </div>
 
     <script>
-        let canvas = new fabric.Canvas('canvas', {
-            width: 600,
-            height: 600,
-            backgroundColor: '#f8f8f8'
-        });
+        let canvas = new fabric.Canvas('canvas', { preserveObjectStacking: true });
+        let currentTab = 0; // 0 = Frente, 1 = Dorso
 
-        let currentMockup = null;
-        let isGrayscaleMode = true;
+        // Mockups de ejemplo (cambia estas URLs por las tuyas cuando las subas)
+        const mockups = {
+            "medalla-redonda": "https://picsum.photos/id/1015/600/600",
+            "medalla-ovalada": "https://picsum.photos/id/201/600/600",
+            "mate-acero": "https://picsum.photos/id/180/600/600"
+        };
 
-        // Cargar mockup
-        document.getElementById('mockupUpload').addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            if (!file) return;
-            
-            const reader = new FileReader();
-            reader.onload = function(event) {
-                fabric.Image.fromURL(event.target.result, function(img) {
-                    img.scaleToWidth(600);
-                    img.selectable = false; // Fondo fijo
-                    img.evented = false;
-                    canvas.setBackgroundImage(img, canvas.renderAll.bind(canvas), {
-                        scaleX: 600 / img.width,
-                        scaleY: 600 / img.height
-                    });
-                });
-            };
-            reader.readAsDataURL(file);
-        });
+        function loadMockup() {
+            const product = document.getElementById('productSelect').value;
+            fabric.Image.fromURL(mockups[product], img => {
+                img.scaleToWidth(550);
+                img.selectable = false;
+                canvas.setBackgroundImage(img, canvas.renderAll.bind(canvas));
+            });
+        }
 
         // Subir imagen + convertir a gris
-        document.getElementById('imageUpload').addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            if (!file) return;
-            
+        document.getElementById('imageUpload').addEventListener('change', e => {
             const reader = new FileReader();
-            reader.onload = function(event) {
-                fabric.Image.fromURL(event.target.result, function(img) {
-                    // Convertir a escala de grises
+            reader.onload = ev => {
+                fabric.Image.fromURL(ev.target.result, img => {
                     img.filters.push(new fabric.Image.filters.Grayscale());
                     img.applyFilters();
-                    img.scaleToWidth(200); // Tamaño inicial razonable
+                    img.scaleToWidth(200);
                     canvas.add(img);
                     canvas.setActiveObject(img);
-                    canvas.renderAll();
                 });
             };
-            reader.readAsDataURL(file);
+            reader.readAsDataURL(e.target.files[0]);
         });
 
-        // Agregar texto
         function addText() {
             const textStr = document.getElementById('textInput').value || "Texto de ejemplo";
             const font = document.getElementById('fontSelect').value;
-            
             const text = new fabric.Text(textStr, {
-                left: 200,
-                top: 250,
-                fontSize: 30,
-                fontFamily: font,
-                fill: '#333',
-                editable: true
+                left: 150, top: 200, fontSize: 28, fontFamily: font,
+                fill: '#222', editable: true
             });
-            
-            if (isGrayscaleMode) {
-                text.set('fill', '#444');
-            }
-            
             canvas.add(text);
             canvas.setActiveObject(text);
+        }
+
+        async function addQR() {
+            let url = document.getElementById('qrLink').value.trim();
+            if (!url) return alert("Ingresa un enlace");
+            if (!url.startsWith('http')) url = 'https://' + url;
+
+            const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(url)}`;
+            fabric.Image.fromURL(qrUrl, img => {
+                img.scaleToWidth(140);
+                canvas.add(img);
+                canvas.setActiveObject(img);
+            });
+        }
+
+        function addTemplate(type) {
+            let url = '';
+            if (type === 'heart') url = 'https://picsum.photos/id/1016/150/150';
+            if (type === 'flower') url = 'https://picsum.photos/id/133/150/150';
+            if (type === 'star') url = 'https://picsum.photos/id/201/150/150';
+
+            fabric.Image.fromURL(url, img => {
+                img.filters.push(new fabric.Image.filters.Grayscale());
+                img.applyFilters();
+                img.scaleToWidth(120);
+                canvas.add(img);
+                canvas.setActiveObject(img);
+            });
+        }
+
+        function applyGrayscale() {
+            canvas.getObjects().forEach(obj => {
+                if (obj.type === 'image') {
+                    obj.filters = [new fabric.Image.filters.Grayscale()];
+                    obj.applyFilters();
+                }
+            });
             canvas.renderAll();
         }
 
-        // Generar QR simple (usando API pública)
-        async function addQR() {
-            const link = document.getElementById('qrLink').value.trim();
-            if (!link) {
-                alert("Por favor ingresa un enlace");
-                return;
-            }
-            
-            // Usar API gratuita de QR
-            const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(link)}`;
-            
-            fabric.Image.fromURL(qrUrl, function(img) {
-                img.scaleToWidth(150);
-                canvas.add(img);
-                canvas.setActiveObject(img);
-                canvas.renderAll();
-            });
+        function deleteSelected() {
+            const active = canvas.getActiveObject();
+            if (active) canvas.remove(active);
         }
 
-        // Exportar
+        function clearCanvas() {
+            if (confirm("¿Borrar todo el diseño?")) canvas.clear();
+        }
+
         function exportDesign() {
-            const dataURL = canvas.toDataURL({
-                format: 'png',
-                quality: 1.0,
-                multiplier: 2 // Mayor resolución
-            });
-            
             const link = document.createElement('a');
-            link.download = 'diseno-grabado-laser.png';
-            link.href = dataURL;
+            link.download = `grabado-${currentTab === 0 ? 'frente' : 'dorso'}.png`;
+            link.href = canvas.toDataURL({ format: 'png', quality: 1, multiplier: 2 });
             link.click();
         }
 
-        // Limpiar
-        function clearCanvas() {
-            if (confirm("¿Limpiar todo el diseño?")) {
-                canvas.clear();
-                // Restaurar fondo si existía
-                canvas.renderAll();
-            }
+        function switchTab(tab) {
+            currentTab = tab;
+            document.querySelectorAll('.tab').forEach((t, i) => {
+                t.classList.toggle('active', i === tab);
+            });
+            // Aquí más adelante guardaremos el estado de cada lado
+            alert("Cambio a " + (tab === 0 ? "Frente" : "Dorso") + " - Próximamente guardaremos ambos diseños");
         }
 
-        // Toggle Grayscale (simulado)
-        function toggleGrayscale() {
-            isGrayscaleMode = !isGrayscaleMode;
-            alert("Modo Escala de Grises: " + (isGrayscaleMode ? "Activado" : "Desactivado") + "\n\nEn la versión final se aplicará automáticamente.");
-        }
-
-        // Controles de teclado
-        document.addEventListener('keydown', function(e) {
-            if (e.key === "Delete" || e.key === "Backspace") {
-                const active = canvas.getActiveObject();
-                if (active) {
-                    canvas.remove(active);
-                }
-            }
-        });
-
-        // Inicializar con un mockup de ejemplo (puedes reemplazarlo)
-        window.onload = function() {
-            // Fondo temporal (círculo como medalla)
-            const circle = new fabric.Circle({
-                radius: 280,
-                fill: '#e0e0e0',
-                left: 300,
-                top: 300,
-                originX: 'center',
-                originY: 'center',
-                selectable: false,
-                evented: false
-            });
-            canvas.add(circle);
-            
-            const textDemo = new fabric.Text("Medalla de Ejemplo", {
-                left: 150,
-                top: 100,
-                fontSize: 22,
-                fill: '#666'
-            });
-            canvas.add(textDemo);
-            
-            console.log("✅ Prototipo cargado. Sube tus imágenes para probar.");
-        };
+        // Cargar mockup inicial
+        window.onload = () => loadMockup();
     </script>
 </body>
 </html>
