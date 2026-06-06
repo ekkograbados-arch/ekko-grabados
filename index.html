@@ -74,14 +74,12 @@
         let canvas = new fabric.Canvas('canvas', { preserveObjectStacking: true });
         let currentTab = 0;
 
-        // === TUS FUENTES PERSONALIZADAS ===
-        const customFonts = [
-            { name: "Arial", family: "Arial" },
-            { name: "Times New Roman", family: "Times New Roman" },
-            // Agrega aquí tus fuentes reales:
-            // { name: "MiFuenteElegante", family: "MiFuenteElegante", url: "https://tudominio.com/fonts/MiFuenteElegante.ttf" },
-        ];
-
+       // === TUS FUENTES PERSONALIZADAS ===
+const customFonts = [
+    { name: "Arial", family: "Arial" },
+    { name: "Times New Roman", family: "Times New Roman" },
+    { name: "Waltograph", family: "Waltograph", url: "https://raw.githubusercontent.com/ekkograbados-arch/personalizador-laser/fa3023b254c729ef41d870b84bfeab70dc5c5d54/fonts/waltograph42.otf" }
+];
         // Cargar fuentes personalizadas
         function loadCustomFonts() {
             const select = document.getElementById('fontSelect');
