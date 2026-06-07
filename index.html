@@ -85,7 +85,9 @@
         let currentTab = 0;
         let canvas = null;
 
-const customFonts = [
+        const customFonts = [
+            { name: "Arial", family: "Arial" },
+            { name: "Times New Roman", family: "Times New Roman" },
             { name: "Waltograph", family: "Waltograph", url: "https://raw.githubusercontent.com/ekkograbados-arch/personalizador-laser/fa3023b254c729ef41d870b84bfeab70dc5c5d54/fonts/waltograph42.otf" },
             { name: "Billie James", family: "Billie James", url: "https://raw.githubusercontent.com/ekkograbados-arch/personalizador-laser/52f9231774d61702e7c82447a21d254229e7b7f3/fonts/BillieJames-Regular.ttf" },
             { name: "Breathing", family: "Breathing", url: "https://raw.githubusercontent.com/ekkograbados-arch/personalizador-laser/52f9231774d61702e7c82447a21d254229e7b7f3/fonts/Breathing%20Personal%20Use%20Only.ttf" },
@@ -204,7 +206,7 @@ const customFonts = [
                 link.href = canvas.toDataURL({ format: 'png', multiplier: 2 });
                 link.click();
             } catch (e) {
-                alert("No se pudo descargar automáticamente.\n\nPrueba: Clic derecho sobre el canvas → 'Guardar imagen como...'");
+                alert("No se pudo descargar automáticamente.\n\nIntenta: Clic derecho sobre el canvas → Guardar imagen como...");
             }
         }
 
