@@ -18,12 +18,12 @@
         button:hover { background:#0056b3; }
         .controls { min-width:320px; }
         .template-btn { width:48%; font-size:14px; margin-bottom:8px; }
-        .download-btn { background:#28a745 !important; font-size:16px; padding:14px; }
+        .download-btn { background:#28a745 !important; padding:14px; font-size:16px; }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>🎨 Personalizador de Grabado Láser</h1>
+        <h1>🎨 Personalizador de Grabado Láser (Modo Prueba)</h1>
 
         <div class="tabs">
             <button class="tab active" onclick="switchTab(0)">Frente</button>
@@ -32,15 +32,15 @@
 
         <div class="main">
             <div class="canvas-wrapper">
-                <canvas id="canvas" width="550" height="550" style="border:2px solid #ccc; border-radius:8px;"></canvas>
+                <canvas id="canvas" width="550" height="550" style="border:2px solid #ccc; border-radius:8px; background:#eeeeee;"></canvas>
             </div>
 
             <div class="controls">
-                <h3>Producto</h3>
-                <select id="productSelect" onchange="loadMockup()">
-                    <option value="medalla-redonda">Medalla Redonda</option>
-                    <option value="medalla-militar">Medalla Tipo Militar</option>
-                    <option value="mate-acero">Mate de Acero</option>
+                <h3>Producto (Fondo gris temporal)</h3>
+                <select id="productSelect">
+                    <option value="1">Medalla Redonda</option>
+                    <option value="2">Medalla Tipo Militar</option>
+                    <option value="3">Mate de Acero</option>
                 </select>
 
                 <h3>Subir Imagen/Logo</h3>
@@ -76,7 +76,6 @@
 
                 <hr>
                 <button onclick="exportCurrentSide()" class="download-btn">📥 DESCARGAR LADO ACTUAL</button>
-                <button onclick="alert('Cambia al otro lado y usa el botón de arriba para descargar cada lado por separado.')" class="download-btn">📥 Descargar Ambos (método manual)</button>
             </div>
         </div>
     </div>
@@ -106,12 +105,6 @@
             { name: "Study Person", family: "Study Person", url: "https://raw.githubusercontent.com/ekkograbados-arch/personalizador-laser/52f9231774d61702e7c82447a21d254229e7b7f3/fonts/Study%20Person.otf" }
         ];
 
-        const mockups = {
-            "medalla-redonda": "https://raw.githubusercontent.com/ekkograbados-arch/personalizador-laser/main/mockups/medalla-redonda.svg",
-            "medalla-militar": "https://raw.githubusercontent.com/ekkograbados-arch/personalizador-laser/main/mockups/medalla-militar.png2.png",
-            "mate-acero": "https://raw.githubusercontent.com/ekkograbados-arch/personalizador-laser/main/mockups/mate-acero.svg"
-        };
-
         function loadCustomFonts() {
             const select = document.getElementById('fontSelect');
             select.innerHTML = '';
@@ -138,20 +131,8 @@
             currentTab = tab;
             document.querySelectorAll('.tab').forEach((t, i) => t.classList.toggle('active', i === tab));
             createCanvas();
-            loadMockup();
-            if (states[tab]) canvas.loadFromJSON(states[tab], () => canvas.renderAll());
         }
 
-        function loadMockup() {
-            const product = document.getElementById('productSelect').value;
-            fabric.Image.fromURL(mockups[product], img => {
-                img.scaleToWidth(550);
-                img.selectable = false;
-                canvas.setBackgroundImage(img, canvas.renderAll.bind(canvas));
-            });
-        }
-
-        // Funciones principales
         document.getElementById('imageUpload').addEventListener('change', e => {
             const reader = new FileReader();
             reader.onload = ev => {
@@ -204,15 +185,15 @@
                 link.download = currentTab === 0 ? 'grabado-frente.png' : 'grabado-dorso.png';
                 link.href = canvas.toDataURL({ format: 'png', multiplier: 2 });
                 link.click();
+                console.log("Descarga iniciada");
             } catch (e) {
-                alert("No se pudo descargar. Prueba haciendo clic derecho sobre el canvas → Guardar imagen como...");
+                alert("Error al descargar. Prueba haciendo clic derecho sobre el canvas → Guardar imagen como...");
             }
         }
 
         window.onload = () => {
             loadCustomFonts();
             createCanvas();
-            loadMockup();
         };
     </script>
 </body>
