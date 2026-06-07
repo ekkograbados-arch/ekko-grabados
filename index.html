@@ -50,8 +50,8 @@
                 <select id="fontSelect"></select>
                 <button onclick="addText()">➕ Agregar Texto</button>
 
-                <h3>Plantillas Decorativas (Tus SVGs)</h3>
-                <div style="display:flex; flex-wrap:wrap; gap:8px; max-height:400px; overflow-y:auto;">
+                <h3>Plantillas Decorativas (SVGs)</h3>
+                <div style="display:flex; flex-wrap:wrap; gap:8px; max-height:420px; overflow-y:auto; padding:5px;">
                     <button class="template-btn" onclick="addTemplate(1)">001</button>
                     <button class="template-btn" onclick="addTemplate(2)">002</button>
                     <button class="template-btn" onclick="addTemplate(3)">003</button>
@@ -68,6 +68,7 @@
                     <button class="template-btn" onclick="addTemplate(14)">014</button>
                     <button class="template-btn" onclick="addTemplate(15)">015</button>
                 </div>
+
                 <h3>QR Code</h3>
                 <input type="text" id="qrLink" placeholder="https://tuenlace.com">
                 <button onclick="addQR()">📱 Generar QR</button>
@@ -83,32 +84,35 @@
 
     <script>
         let canvas = new fabric.Canvas('canvas', { preserveObjectStacking: true });
+
         let currentTab = 0;
 
-        // === FUENTES (mantengo las tuyas) ===
-        const customFonts = [
-            { name: "Arial", family: "Arial" },
-            { name: "Times New Roman", family: "Times New Roman" },
-            { name: "Waltograph", family: "Waltograph", url: "https://raw.githubusercontent.com/ekkograbados-arch/personalizador-laser/fa3023b254c729ef41d870b84bfeab70dc5c5d54/fonts/waltograph42.otf" },
-            { name: "Billie James", family: "Billie James", url: "https://raw.githubusercontent.com/ekkograbados-arch/personalizador-laser/52f9231774d61702e7c82447a21d254229e7b7f3/fonts/BillieJames-Regular.ttf" },
-            { name: "Breathing", family: "Breathing", url: "https://raw.githubusercontent.com/ekkograbados-arch/personalizador-laser/52f9231774d61702e7c82447a21d254229e7b7f3/fonts/Breathing%20Personal%20Use%20Only.ttf" },
-            { name: "Chocolate", family: "Chocolate", url: "https://raw.githubusercontent.com/ekkograbados-arch/personalizador-laser/52f9231774d61702e7c82447a21d254229e7b7f3/fonts/Chocolate.ttf" },
-            { name: "DK Lemon Yellow Sun", family: "DK Lemon Yellow Sun", url: "https://raw.githubusercontent.com/ekkograbados-arch/personalizador-laser/52f9231774d61702e7c82447a21d254229e7b7f3/fonts/DK%20Lemon%20Yellow%20Sun.otf" },
-            { name: "Farmhouse", family: "Farmhouse", url: "https://raw.githubusercontent.com/ekkograbados-arch/personalizador-laser/52f9231774d61702e7c82447a21d254229e7b7f3/fonts/Farmhouse.otf" },
-            { name: "High Spirited", family: "High Spirited", url: "https://raw.githubusercontent.com/ekkograbados-arch/personalizador-laser/52f9231774d61702e7c82447a21d254229e7b7f3/fonts/High%20Spirited.ttf" },
-            { name: "LMS Beyond Infinity", family: "LMS Beyond Infinity", url: "https://raw.githubusercontent.com/ekkograbados-arch/personalizador-laser/52f9231774d61702e7c82447a21d254229e7b7f3/fonts/LMS%20Beyond%20Infinity.ttf" },
-            { name: "Milk Water", family: "Milk Water", url: "https://raw.githubusercontent.com/ekkograbados-arch/personalizador-laser/52f9231774d61702e7c82447a21d254229e7b7f3/fonts/Milk%20Water.otf" },
-            { name: "Nostalgic Letter", family: "Nostalgic Letter", url: "https://raw.githubusercontent.com/ekkograbados-arch/personalizador-laser/52f9231774d61702e7c82447a21d254229e7b7f3/fonts/Nostalgic%20Letter.otf" },
-            { name: "Please Write Me a Song", family: "Please Write Me a Song", url: "https://raw.githubusercontent.com/ekkograbados-arch/personalizador-laser/52f9231774d61702e7c82447a21d254229e7b7f3/fonts/Please%20write%20me%20a%20song.ttf" },
-            { name: "Romantic Sunrise", family: "Romantic Sunrise", url: "https://raw.githubusercontent.com/ekkograbados-arch/personalizador-laser/52f9231774d61702e7c82447a21d254229e7b7f3/fonts/Romantic%20Sunrise.otf" },
-            { name: "Simple Handmade", family: "Simple Handmade", url: "https://raw.githubusercontent.com/ekkograbados-arch/personalizador-laser/52f9231774d61702e7c82447a21d254229e7b7f3/fonts/SimpleHandmade.ttf" },
-            { name: "Simpsonfont DEMO", family: "Simpsonfont DEMO", url: "https://raw.githubusercontent.com/ekkograbados-arch/personalizador-laser/52f9231774d61702e7c82447a21d254229e7b7f3/fonts/Simpsonfont%20DEMO.otf" },
-            { name: "Study Night", family: "Study Night", url: "https://raw.githubusercontent.com/ekkograbados-arch/personalizador-laser/52f9231774d61702e7c82447a21d254229e7b7f3/fonts/Study%20Night.otf" },
-            { name: "Study Person", family: "Study Person", url: "https://raw.githubusercontent.com/ekkograbados-arch/personalizador-laser/52f9231774d61702e7c82447a21d254229e7b7f3/fonts/Study%20Person.otf" }
-        ];
+        // === TUS FUENTES PERSONALIZADAS ===
+const customFonts = [
+    { name: "Arial", family: "Arial" },
+    { name: "Times New Roman", family: "Times New Roman" },
+    
+    { name: "Waltograph", family: "Waltograph", url: "https://raw.githubusercontent.com/ekkograbados-arch/personalizador-laser/fa3023b254c729ef41d870b84bfeab70dc5c5d54/fonts/waltograph42.otf" },
+    
+    { name: "Billie James", family: "Billie James", url: "https://raw.githubusercontent.com/ekkograbados-arch/personalizador-laser/52f9231774d61702e7c82447a21d254229e7b7f3/fonts/BillieJames-Regular.ttf" },
+    { name: "Breathing", family: "Breathing", url: "https://raw.githubusercontent.com/ekkograbados-arch/personalizador-laser/52f9231774d61702e7c82447a21d254229e7b7f3/fonts/Breathing%20Personal%20Use%20Only.ttf" },
+    { name: "Chocolate", family: "Chocolate", url: "https://raw.githubusercontent.com/ekkograbados-arch/personalizador-laser/52f9231774d61702e7c82447a21d254229e7b7f3/fonts/Chocolate.ttf" },
+    { name: "DK Lemon Yellow Sun", family: "DK Lemon Yellow Sun", url: "https://raw.githubusercontent.com/ekkograbados-arch/personalizador-laser/52f9231774d61702e7c82447a21d254229e7b7f3/fonts/DK%20Lemon%20Yellow%20Sun.otf" },
+    { name: "Farmhouse", family: "Farmhouse", url: "https://raw.githubusercontent.com/ekkograbados-arch/personalizador-laser/52f9231774d61702e7c82447a21d254229e7b7f3/fonts/Farmhouse.otf" },
+    { name: "High Spirited", family: "High Spirited", url: "https://raw.githubusercontent.com/ekkograbados-arch/personalizador-laser/52f9231774d61702e7c82447a21d254229e7b7f3/fonts/High%20Spirited.ttf" },
+    { name: "LMS Beyond Infinity", family: "LMS Beyond Infinity", url: "https://raw.githubusercontent.com/ekkograbados-arch/personalizador-laser/52f9231774d61702e7c82447a21d254229e7b7f3/fonts/LMS%20Beyond%20Infinity.ttf" },
+    { name: "Milk Water", family: "Milk Water", url: "https://raw.githubusercontent.com/ekkograbados-arch/personalizador-laser/52f9231774d61702e7c82447a21d254229e7b7f3/fonts/Milk%20Water.otf" },
+    { name: "Nostalgic Letter", family: "Nostalgic Letter", url: "https://raw.githubusercontent.com/ekkograbados-arch/personalizador-laser/52f9231774d61702e7c82447a21d254229e7b7f3/fonts/Nostalgic%20Letter.otf" },
+    { name: "Please Write Me a Song", family: "Please Write Me a Song", url: "https://raw.githubusercontent.com/ekkograbados-arch/personalizador-laser/52f9231774d61702e7c82447a21d254229e7b7f3/fonts/Please%20write%20me%20a%20song.ttf" },
+    { name: "Romantic Sunrise", family: "Romantic Sunrise", url: "https://raw.githubusercontent.com/ekkograbados-arch/personalizador-laser/52f9231774d61702e7c82447a21d254229e7b7f3/fonts/Romantic%20Sunrise.otf" },
+    { name: "Simple Handmade", family: "Simple Handmade", url: "https://raw.githubusercontent.com/ekkograbados-arch/personalizador-laser/52f9231774d61702e7c82447a21d254229e7b7f3/fonts/SimpleHandmade.ttf" },
+    { name: "Simpsonfont DEMO", family: "Simpsonfont DEMO", url: "https://raw.githubusercontent.com/ekkograbados-arch/personalizador-laser/52f9231774d61702e7c82447a21d254229e7b7f3/fonts/Simpsonfont%20DEMO.otf" },
+    { name: "Study Night", family: "Study Night", url: "https://raw.githubusercontent.com/ekkograbados-arch/personalizador-laser/52f9231774d61702e7c82447a21d254229e7b7f3/fonts/Study%20Night.otf" },
+    { name: "Study Person", family: "Study Person", url: "https://raw.githubusercontent.com/ekkograbados-arch/personalizador-laser/52f9231774d61702e7c82447a21d254229e7b7f3/fonts/Study%20Person.otf" }
+];
 
-        // === TUS PLANTILLAS SVG ===
         const baseUrl = "https://raw.githubusercontent.com/ekkograbados-arch/personalizador-laser/main/templates/";
+
         function getTemplateUrl(num) {
             return baseUrl + String(num).padStart(3, '0') + ".svg";
         }
@@ -144,7 +148,26 @@
             });
         }
 
-        // Subir imagen + gris
+        // === FUNCIÓN CORREGIDA PARA SVGs ===
+        function addTemplate(num) {
+            const url = getTemplateUrl(num);
+            console.log("Intentando cargar:", url);
+
+            fabric.loadSVGFromURL(url, function(objects, options) {
+                const obj = fabric.util.groupSVGElements(objects, options);
+                obj.scaleToWidth(160);
+                obj.set({ left: 200, top: 200 });
+                canvas.add(obj);
+                canvas.setActiveObject(obj);
+                canvas.renderAll();
+                console.log("Plantilla", num, "cargada correctamente");
+            }, function(err) {
+                console.error("Error al cargar SVG", num, err);
+                alert("Error al cargar la plantilla " + num + ". Intenta con otra.");
+            });
+        }
+
+        // Resto de funciones (mantener las anteriores)
         document.getElementById('imageUpload').addEventListener('change', e => {
             const reader = new FileReader();
             reader.onload = ev => {
@@ -167,17 +190,6 @@
             canvas.setActiveObject(text);
         }
 
-        function addTemplate(num) {
-            const url = getTemplateUrl(num);
-            fabric.Image.fromURL(url, img => {
-                img.filters.push(new fabric.Image.filters.Grayscale());
-                img.applyFilters();
-                img.scaleToWidth(160);
-                canvas.add(img);
-                canvas.setActiveObject(img);
-            });
-        }
-
         async function addQR() {
             let url = document.getElementById('qrLink').value.trim();
             if (!url) return alert("Ingresa un enlace");
@@ -192,9 +204,11 @@
 
         function applyGrayscale() {
             canvas.getObjects().forEach(obj => {
-                if (obj.type === 'image') {
-                    obj.filters = [new fabric.Image.filters.Grayscale()];
-                    obj.applyFilters();
+                if (obj.type === 'image' || obj.type === 'group') {
+                    if (obj.filters) {
+                        obj.filters.push(new fabric.Image.filters.Grayscale());
+                        obj.applyFilters && obj.applyFilters();
+                    }
                 }
             });
             canvas.renderAll();
