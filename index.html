@@ -83,7 +83,11 @@
     </div>
 
     <script>
-        let canvas = new fabric.Canvas('canvas', { preserveObjectStacking: true });
+       let canvas = new fabric.Canvas('canvas', { 
+    preserveObjectStacking: true,
+    enableRetinaScaling: true,
+    renderOnAddRemove: true
+});
 
         let currentTab = 0;
 
@@ -149,23 +153,32 @@ const customFonts = [
         }
 
         // === FUNCIÓN CORREGIDA PARA SVGs ===
-        function addTemplate(num) {
-            const url = getTemplateUrl(num);
-            console.log("Intentando cargar:", url);
+function addTemplate(num) {
+    const url = getTemplateUrl(num);
+    console.log("Intentando cargar plantilla:", num, url);
 
-            fabric.loadSVGFromURL(url, function(objects, options) {
-                const obj = fabric.util.groupSVGElements(objects, options);
-                obj.scaleToWidth(160);
-                obj.set({ left: 200, top: 200 });
-                canvas.add(obj);
-                canvas.setActiveObject(obj);
-                canvas.renderAll();
-                console.log("Plantilla", num, "cargada correctamente");
-            }, function(err) {
-                console.error("Error al cargar SVG", num, err);
-                alert("Error al cargar la plantilla " + num + ". Intenta con otra.");
-            });
+    fabric.loadSVGFromURL(url, function(objects, options) {
+        // ÉXITO
+        const obj = fabric.util.groupSVGElements(objects, options);
+        obj.scaleToWidth(160);
+        obj.set({ 
+            left: Math.random() * 200 + 100, 
+            top: Math.random() * 200 + 100 
+        });
+        canvas.add(obj);
+        canvas.setActiveObject(obj);
+        canvas.renderAll();
+        console.log("✅ Plantilla", num, "cargada correctamente");
+        
+    }, function(err) {
+        // ERROR
+        console.error("❌ Error cargando SVG", num, err);
+        // Solo mostramos alerta si realmente falló
+        if (err) {
+            alert("No se pudo cargar la plantilla " + String(num).padStart(3, '0') + "\n\nRevisa la consola (F12) para más detalles.");
         }
+    });
+}
 
         // Resto de funciones (mantener las anteriores)
         document.getElementById('imageUpload').addEventListener('change', e => {
