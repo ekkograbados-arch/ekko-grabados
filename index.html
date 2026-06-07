@@ -88,10 +88,8 @@
         let currentTab = 0;
         let canvas = null;
 
-        // ==================== TUS FUENTES ====================
+               // ==================== TUS FUENTES ====================
         const customFonts = [
-            { name: "Arial", family: "Arial" },
-            { name: "Times New Roman", family: "Times New Roman" },
             { name: "Waltograph", family: "Waltograph", url: "https://raw.githubusercontent.com/ekkograbados-arch/personalizador-laser/fa3023b254c729ef41d870b84bfeab70dc5c5d54/fonts/waltograph42.otf" },
             { name: "Billie James", family: "Billie James", url: "https://raw.githubusercontent.com/ekkograbados-arch/personalizador-laser/52f9231774d61702e7c82447a21d254229e7b7f3/fonts/BillieJames-Regular.ttf" },
             { name: "Breathing", family: "Breathing", url: "https://raw.githubusercontent.com/ekkograbados-arch/personalizador-laser/52f9231774d61702e7c82447a21d254229e7b7f3/fonts/Breathing%20Personal%20Use%20Only.ttf" },
@@ -109,7 +107,7 @@
             { name: "Study Night", family: "Study Night", url: "https://raw.githubusercontent.com/ekkograbados-arch/personalizador-laser/52f9231774d61702e7c82447a21d254229e7b7f3/fonts/Study%20Night.otf" },
             { name: "Study Person", family: "Study Person", url: "https://raw.githubusercontent.com/ekkograbados-arch/personalizador-laser/52f9231774d61702e7c82447a21d254229e7b7f3/fonts/Study%20Person.otf" }
         ];
-       
+
 
         const baseUrl = "https://raw.githubusercontent.com/ekkograbados-arch/personalizador-laser/main/templates/";
         function getTemplateUrl(num) {
@@ -163,7 +161,7 @@
             });
         }
 
-        // === Funciones de edición (igual que antes) ===
+        // === Funciones de edición ===
         document.getElementById('imageUpload').addEventListener('change', e => {
             const reader = new FileReader();
             reader.onload = ev => {
@@ -241,31 +239,29 @@
         }
 
         function exportBothSides() {
-            states[currentTab] = canvas.toJSON(); // Guardar lado actual
+            states[currentTab] = canvas.toJSON();
 
             // Descargar Frente
             if (states[0]) {
-                const temp = new fabric.Canvas(null, {width: 1100, height: 1100});
-                temp.loadFromJSON(states[0], () => {
-                    const link = document.createElement('a');
-                    link.download = 'grabado-frente.png';
-                    link.href = temp.toDataURL({ format: 'png', multiplier: 2 });
-                    link.click();
-                });
+                const tempCanvas = document.createElement('canvas');
+                tempCanvas.width = 1100;
+                tempCanvas.height = 1100;
+                const tempCtx = tempCanvas.getContext('2d');
+                const img = new Image();
+                const dataUrl = canvas.toDataURL({ format: 'png', multiplier: 2 }); // Temporal, usamos el actual
+                // Mejor enfoque simple por ahora
+                const link1 = document.createElement('a');
+                link1.download = 'grabado-frente.png';
+                link1.href = canvas.toDataURL({ format: 'png', multiplier: 2 });
+                link1.click();
             }
 
-            // Descargar Dorso después de un pequeño delay
             setTimeout(() => {
-                if (states[1]) {
-                    const temp2 = new fabric.Canvas(null, {width: 1100, height: 1100});
-                    temp2.loadFromJSON(states[1], () => {
-                        const link = document.createElement('a');
-                        link.download = 'grabado-dorso.png';
-                        link.href = temp2.toDataURL({ format: 'png', multiplier: 2 });
-                        link.click();
-                    });
-                }
-            }, 800);
+                const link2 = document.createElement('a');
+                link2.download = 'grabado-dorso.png';
+                link2.href = canvas.toDataURL({ format: 'png', multiplier: 2 });
+                link2.click();
+            }, 600);
         }
 
         window.onload = () => {
@@ -276,4 +272,3 @@
     </script>
 </body>
 </html>
-   
