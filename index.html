@@ -68,7 +68,23 @@
                     <button class="template-btn" onclick="addTemplate(14)">014</button>
                     <button class="template-btn" onclick="addTemplate(15)">015</button>
                 </div>
+function addTemplate(num) {
+    const url = getTemplateUrl(num);
+    console.log("Cargando SVG:", url); // Para debug
 
+    fabric.Image.fromURL(url, img => {
+        img.filters.push(new fabric.Image.filters.Grayscale());
+        img.applyFilters();
+        img.scaleToWidth(160);
+        canvas.add(img);
+        canvas.setActiveObject(img);
+        canvas.renderAll();
+        console.log("SVG cargado correctamente:", num);
+    }, function(err) {
+        console.error("Error cargando SVG", num, err);
+        alert("No se pudo cargar la plantilla " + String(num).padStart(3, '0') + ".svg\n\nPrueba con otra o sube las imágenes como PNG temporalmente.");
+    });
+}
                 <h3>QR Code</h3>
                 <input type="text" id="qrLink" placeholder="https://tuenlace.com">
                 <button onclick="addQR()">📱 Generar QR</button>
