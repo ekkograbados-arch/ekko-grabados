@@ -18,12 +18,12 @@
         button:hover { background:#0056b3; }
         .controls { min-width:320px; }
         .template-btn { width:48%; font-size:14px; margin-bottom:8px; }
-        .download-btn { background:#28a745 !important; padding:14px; font-size:16px; }
+        .download-btn { background:#28a745 !important; padding:14px; font-size:16px; font-weight:bold; }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>🎨 Personalizador de Grabado Láser (Modo Prueba)</h1>
+        <h1>🎨 Personalizador de Grabado Láser</h1>
 
         <div class="tabs">
             <button class="tab active" onclick="switchTab(0)">Frente</button>
@@ -32,15 +32,15 @@
 
         <div class="main">
             <div class="canvas-wrapper">
-                <canvas id="canvas" width="550" height="550" style="border:2px solid #ccc; border-radius:8px; background:#eeeeee;"></canvas>
+                <canvas id="canvas" width="550" height="550" style="border:2px solid #ccc; border-radius:8px;"></canvas>
             </div>
 
             <div class="controls">
-                <h3>Producto (Fondo gris temporal)</h3>
-                <select id="productSelect">
-                    <option value="1">Medalla Redonda</option>
-                    <option value="2">Medalla Tipo Militar</option>
-                    <option value="3">Mate de Acero</option>
+                <h3>Producto</h3>
+                <select id="productSelect" onchange="loadMockup()">
+                    <option value="medalla-redonda">Medalla Redonda</option>
+                    <option value="medalla-militar">Medalla Tipo Militar</option>
+                    <option value="mate-acero">Mate de Acero</option>
                 </select>
 
                 <h3>Subir Imagen/Logo</h3>
@@ -85,6 +85,7 @@
         let currentTab = 0;
         let canvas = null;
 
+ 
         // ==================== TUS FUENTES ====================
         const customFonts = [
             { name: "Waltograph", family: "Waltograph", url: "https://raw.githubusercontent.com/ekkograbados-arch/personalizador-laser/fa3023b254c729ef41d870b84bfeab70dc5c5d54/fonts/waltograph42.otf" },
@@ -104,6 +105,14 @@
             { name: "Study Night", family: "Study Night", url: "https://raw.githubusercontent.com/ekkograbados-arch/personalizador-laser/52f9231774d61702e7c82447a21d254229e7b7f3/fonts/Study%20Night.otf" },
             { name: "Study Person", family: "Study Person", url: "https://raw.githubusercontent.com/ekkograbados-arch/personalizador-laser/52f9231774d61702e7c82447a21d254229e7b7f3/fonts/Study%20Person.otf" }
         ];
+
+       
+
+        const mockups = {
+            "medalla-redonda": "https://raw.githubusercontent.com/ekkograbados-arch/personalizador-laser/main/mockups/medalla-redonda.svg",
+            "medalla-militar": "https://raw.githubusercontent.com/ekkograbados-arch/personalizador-laser/main/mockups/medalla-militar.png2.png",
+            "mate-acero": "https://raw.githubusercontent.com/ekkograbados-arch/personalizador-laser/main/mockups/mate-acero.svg"
+        };
 
         function loadCustomFonts() {
             const select = document.getElementById('fontSelect');
@@ -131,7 +140,68 @@
             currentTab = tab;
             document.querySelectorAll('.tab').forEach((t, i) => t.classList.toggle('active', i === tab));
             createCanvas();
+            loadMockup();
+            if (states[tab]) canvas.loadFromJSON(states[tab], () => canvas.renderAll());
         }
+
+        function loadMockup() {
+            const product = document.getElementById('productSelect').value;
+            fabric.Image.fromURL(mockups[product], function(img) {
+                img.scaleToWidth(550);
+                img.selectable = false;
+                canvas.setBackgroundImage(img, canvas.renderAll.bind(canvas));
+            }, function(err) {
+                console.log("Error cargando mockup, usando fondo gris");
+                canvas.setBackgroundColor('#e8e8e8', canvas.renderAll.bind(canvas));
+            });
+        }
+
+        // ... (las funciones addText, addTemplate, addQR, exportCurrentSide se mantienen)
+        
+        function addText() {
+            const textStr = document.getElementById('textInput').value || "Texto personalizado";
+            const fontFamily = document.getElementById('fontSelect').value;
+            const text = new fabric.Text(textStr, { left: 150, top: 220, fontSize: 32, fontFamily: fontFamily, fill: '#222' });
+            canvas.add(text);
+            canvas.setActiveObject(text);
+        }
+
+        function addTemplate(num) {
+            const url = "https://raw.githubusercontent.com/ekkograbados-arch/personalizador-laser/main/templates/" + String(num).padStart(3, '0') + ".svg";
+            fabric.loadSVGFromURL(url, function(objects, options) {
+                const obj = fabric.util.groupSVGElements(objects, options);
+                obj.scaleToWidth(160);
+                obj.set({ left: 180 + Math.random()*100, top: 180 + Math.random()*100 });
+                canvas.add(obj);
+                canvas.setActiveObject(obj);
+                canvas.renderAll();
+            });
+        }
+
+        async function addQR() {
+            let url = document.getElementById('qrLink').value.trim();
+            if (!url) return alert("Ingresa un enlace");
+            if (!url.startsWith('http')) url = 'https://' + url;
+            const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=1000x1000&data=${encodeURIComponent(url)}`;
+            fabric.Image.fromURL(qrUrl, img => {
+                img.scaleToWidth(160);
+                canvas.add(img);
+                canvas.setActiveObject(img);
+            });
+        }
+
+        function exportCurrentSide() {
+            try {
+                const link = document.createElement('a');
+                link.download = currentTab === 0 ? 'grabado-frente.png' : 'grabado-dorso.png';
+                link.href = canvas.toDataURL({ format: 'png', multiplier: 2 });
+                link.click();
+                console.log("Descarga iniciada");
+            } catch (e) {
+                alert("Error al descargar. Prueba haciendo clic derecho sobre el canvas → Guardar imagen como...");
+            }
+        }
+
 
         document.getElementById('imageUpload').addEventListener('change', e => {
             const reader = new FileReader();
@@ -180,20 +250,16 @@
         }
 
         function exportCurrentSide() {
-            try {
-                const link = document.createElement('a');
-                link.download = currentTab === 0 ? 'grabado-frente.png' : 'grabado-dorso.png';
-                link.href = canvas.toDataURL({ format: 'png', multiplier: 2 });
-                link.click();
-                console.log("Descarga iniciada");
-            } catch (e) {
-                alert("Error al descargar. Prueba haciendo clic derecho sobre el canvas → Guardar imagen como...");
-            }
+            const link = document.createElement('a');
+            link.download = currentTab === 0 ? 'grabado-frente.png' : 'grabado-dorso.png';
+            link.href = canvas.toDataURL({ format: 'png', multiplier: 2 });
+            link.click();
         }
 
         window.onload = () => {
             loadCustomFonts();
             createCanvas();
+            loadMockup();
         };
     </script>
 </body>
