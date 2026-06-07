@@ -77,17 +77,18 @@
                 <button onclick="applyGrayscale()">🌫️ Convertir todo a Grises</button>
                 <button onclick="deleteSelected()">🗑️ Borrar Seleccionado</button>
                 <button onclick="clearCurrentSide()">🗑️ Limpiar Este Lado</button>
+                <button onclick="exportCurrentSide()" style="background:#28a745;">📥 Descargar Lado Actual</button>
                 <button onclick="exportBothSides()" style="background:#28a745; font-weight:bold;">📥 Descargar Frente + Dorso</button>
             </div>
         </div>
     </div>
 
     <script>
-        let states = { 0: null, 1: null }; // Guardamos el estado JSON de cada lado
+        let states = { 0: null, 1: null };
         let currentTab = 0;
         let canvas = null;
 
-       // ==================== TUS FUENTES ====================
+        // ==================== TUS FUENTES ====================
         const customFonts = [
             { name: "Arial", family: "Arial" },
             { name: "Times New Roman", family: "Times New Roman" },
@@ -108,6 +109,8 @@
             { name: "Study Night", family: "Study Night", url: "https://raw.githubusercontent.com/ekkograbados-arch/personalizador-laser/52f9231774d61702e7c82447a21d254229e7b7f3/fonts/Study%20Night.otf" },
             { name: "Study Person", family: "Study Person", url: "https://raw.githubusercontent.com/ekkograbados-arch/personalizador-laser/52f9231774d61702e7c82447a21d254229e7b7f3/fonts/Study%20Person.otf" }
         ];
+       
+
         const baseUrl = "https://raw.githubusercontent.com/ekkograbados-arch/personalizador-laser/main/templates/";
         function getTemplateUrl(num) {
             return baseUrl + String(num).padStart(3, '0') + ".svg";
@@ -141,21 +144,13 @@
         }
 
         function switchTab(tab) {
-            // Guardar estado actual
-            if (canvas) {
-                states[currentTab] = canvas.toJSON();
-            }
+            if (canvas) states[currentTab] = canvas.toJSON();
             currentTab = tab;
             document.querySelectorAll('.tab').forEach((t, i) => t.classList.toggle('active', i === tab));
-
             createCanvas();
             loadMockup();
-
-            // Restaurar estado si existe
             if (states[tab]) {
-                canvas.loadFromJSON(states[tab], () => {
-                    canvas.renderAll();
-                });
+                canvas.loadFromJSON(states[tab], () => canvas.renderAll());
             }
         }
 
@@ -168,7 +163,7 @@
             });
         }
 
-        // Subir imagen
+        // === Funciones de edición (igual que antes) ===
         document.getElementById('imageUpload').addEventListener('change', e => {
             const reader = new FileReader();
             reader.onload = ev => {
@@ -237,32 +232,40 @@
             }
         }
 
-        function exportBothSides() {
-            // Guardar estado actual
+        function exportCurrentSide() {
             states[currentTab] = canvas.toJSON();
+            const link = document.createElement('a');
+            link.download = currentTab === 0 ? 'grabado-frente.png' : 'grabado-dorso.png';
+            link.href = canvas.toDataURL({ format: 'png', multiplier: 2 });
+            link.click();
+        }
 
-            // Exportar Frente
+        function exportBothSides() {
+            states[currentTab] = canvas.toJSON(); // Guardar lado actual
+
+            // Descargar Frente
             if (states[0]) {
-                const tempCanvas = new fabric.Canvas(null, { width: 550, height: 550 });
-                tempCanvas.loadFromJSON(states[0], () => {
-                    const link1 = document.createElement('a');
-                    link1.download = 'grabado-frente.png';
-                    link1.href = tempCanvas.toDataURL({ format: 'png', multiplier: 2 });
-                    link1.click();
+                const temp = new fabric.Canvas(null, {width: 1100, height: 1100});
+                temp.loadFromJSON(states[0], () => {
+                    const link = document.createElement('a');
+                    link.download = 'grabado-frente.png';
+                    link.href = temp.toDataURL({ format: 'png', multiplier: 2 });
+                    link.click();
                 });
             }
 
+            // Descargar Dorso después de un pequeño delay
             setTimeout(() => {
                 if (states[1]) {
-                    const tempCanvas2 = new fabric.Canvas(null, { width: 550, height: 550 });
-                    tempCanvas2.loadFromJSON(states[1], () => {
-                        const link2 = document.createElement('a');
-                        link2.download = 'grabado-dorso.png';
-                        link2.href = tempCanvas2.toDataURL({ format: 'png', multiplier: 2 });
-                        link2.click();
+                    const temp2 = new fabric.Canvas(null, {width: 1100, height: 1100});
+                    temp2.loadFromJSON(states[1], () => {
+                        const link = document.createElement('a');
+                        link.download = 'grabado-dorso.png';
+                        link.href = temp2.toDataURL({ format: 'png', multiplier: 2 });
+                        link.click();
                     });
                 }
-            }, 600);
+            }, 800);
         }
 
         window.onload = () => {
@@ -273,3 +276,4 @@
     </script>
 </body>
 </html>
+   
