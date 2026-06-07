@@ -18,6 +18,7 @@
         button:hover { background:#0056b3; }
         .controls { min-width:320px; }
         .template-btn { width:48%; font-size:14px; margin-bottom:8px; }
+        .download-btn { background:#28a745 !important; font-size:16px; padding:14px; }
     </style>
 </head>
 <body>
@@ -74,10 +75,8 @@
                 <button onclick="addQR()">📱 Generar QR</button>
 
                 <hr>
-                <button onclick="applyGrayscale()">🌫️ Convertir todo a Grises</button>
-                <button onclick="deleteSelected()">🗑️ Borrar Seleccionado</button>
-                <button onclick="clearCurrentSide()">🗑️ Limpiar Este Lado</button>
-                <button onclick="exportCurrentSide()" style="background:#28a745; padding:12px;">📥 Descargar Lado Actual (Frente o Dorso)</button>
+                <button onclick="exportCurrentSide()" class="download-btn">📥 DESCARGAR LADO ACTUAL</button>
+                <button onclick="alert('Cambia al otro lado y usa el botón de arriba para descargar cada lado por separado.')" class="download-btn">📥 Descargar Ambos (método manual)</button>
             </div>
         </div>
     </div>
@@ -86,7 +85,6 @@
         let states = { 0: null, 1: null };
         let currentTab = 0;
         let canvas = null;
-
 
         // ==================== TUS FUENTES ====================
         const customFonts = [
@@ -107,7 +105,6 @@
             { name: "Study Night", family: "Study Night", url: "https://raw.githubusercontent.com/ekkograbados-arch/personalizador-laser/52f9231774d61702e7c82447a21d254229e7b7f3/fonts/Study%20Night.otf" },
             { name: "Study Person", family: "Study Person", url: "https://raw.githubusercontent.com/ekkograbados-arch/personalizador-laser/52f9231774d61702e7c82447a21d254229e7b7f3/fonts/Study%20Person.otf" }
         ];
-
 
         const mockups = {
             "medalla-redonda": "https://raw.githubusercontent.com/ekkograbados-arch/personalizador-laser/main/mockups/medalla-redonda.svg",
@@ -154,6 +151,7 @@
             });
         }
 
+        // Funciones principales
         document.getElementById('imageUpload').addEventListener('change', e => {
             const reader = new FileReader();
             reader.onload = ev => {
@@ -201,10 +199,14 @@
         }
 
         function exportCurrentSide() {
-            const link = document.createElement('a');
-            link.download = currentTab === 0 ? 'grabado-frente.png' : 'grabado-dorso.png';
-            link.href = canvas.toDataURL({ format: 'png', multiplier: 2 });
-            link.click();
+            try {
+                const link = document.createElement('a');
+                link.download = currentTab === 0 ? 'grabado-frente.png' : 'grabado-dorso.png';
+                link.href = canvas.toDataURL({ format: 'png', multiplier: 2 });
+                link.click();
+            } catch (e) {
+                alert("No se pudo descargar. Prueba haciendo clic derecho sobre el canvas → Guardar imagen como...");
+            }
         }
 
         window.onload = () => {
