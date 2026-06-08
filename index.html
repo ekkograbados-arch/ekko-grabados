@@ -192,37 +192,42 @@
         }
 
         function addTemplate(num) {
-            const url = "https://raw.githubusercontent.com/ekkograbados-arch/personalizador-laser/main/templates/" + String(num).padStart(3, '0') + ".svg";
-            fabric.loadSVGFromURL(
-    url,
 
-    function(objects, options) {
+    const url =
+        "https://raw.githubusercontent.com/ekkograbados-arch/personalizador-laser/main/templates/" +
+        String(num).padStart(3, '0') +
+        ".svg";
 
-        const obj =
-            fabric.util.groupSVGElements(
-                objects,
-                options
-            );
+    fabric.loadSVGFromURL(
+        url,
 
-        obj.scaleToWidth(160);
+        function(objects, options) {
 
-        obj.set({
-            left: 180 + Math.random()*100,
-            top: 180 + Math.random()*100
-        });
+            const obj =
+                fabric.util.groupSVGElements(
+                    objects,
+                    options
+                );
 
-        canvas.add(obj);
+            obj.scaleToWidth(160);
 
-        canvas.setActiveObject(obj);
+            obj.set({
+                left: 180 + Math.random() * 100,
+                top: 180 + Math.random() * 100
+            });
 
-        canvas.renderAll();
-    },
+            canvas.add(obj);
 
-    function(error){
-        console.error(error);
-    }
-);
+            canvas.setActiveObject(obj);
 
+            canvas.renderAll();
+        },
+
+        function(error) {
+            console.error("Error SVG:", error);
+        }
+    );
+}
         async function addQR() {
             let url = document.getElementById('qrLink').value.trim();
             if (!url) return alert("Ingresa un enlace");
@@ -236,24 +241,52 @@
         }
 
         function exportCurrentSide() {
-            try {
-                const link = document.createElement('a');
-                link.download = currentTab === 0 ? 'grabado-frente.png' : 'grabado-dorso.png';
-                link.href = canvas.toDataURL({ format: 'png', multiplier: 2 });
-                link.click();
-            } catch (e) {
-                alert("No se pudo descargar automáticamente.\n\nPrueba: Clic derecho sobre el canvas → Guardar imagen como...");
-            }
-        }
 
+    try {
+
+        const dataURL = canvas.toDataURL({
+            format: 'png',
+            multiplier: 2
+        });
+
+        const link = document.createElement('a');
+
+        link.href = dataURL;
+
+        link.download =
+            currentTab === 0
+            ? 'grabado-frente.png'
+            : 'grabado-dorso.png';
+
+        document.body.appendChild(link);
+
+        link.click();
+
+        document.body.removeChild(link);
+
+    } catch (e) {
+
+        console.error("ERROR EXPORTANDO:", e);
+
+        alert(
+            "Error exportando:\n\n" +
+            e.name +
+            "\n\n" +
+            e.message
+        );
+    }
+}
        window.onload = () => {
+
     loadCustomFonts();
+
     createCanvas();
 
     canvas.setBackgroundColor(
         '#ffffff',
         canvas.renderAll.bind(canvas)
     );
+
 };
     </script>
 </body>
