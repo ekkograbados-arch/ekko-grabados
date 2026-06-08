@@ -1,1 +1,25 @@
+[
+  {
+    "id": "medalla-redonda",
+    "nombre": "Medalla Redonda",
+    "ancho_mm": 25,
+    "alto_mm": 25,
+    "mockup": "mockups/medalla-redonda.svg"
+  },
 
+  {
+    "id": "medalla-militar",
+    "nombre": "Medalla Militar",
+    "ancho_mm": 45,
+    "alto_mm": 25,
+    "mockup": "mockups/medalla-militar.png"
+  },
+
+  {
+    "id": "mate-acero",
+    "nombre": "Mate Acero",
+    "ancho_mm": 60,
+    "alto_mm": 60,
+    "mockup": "mockups/mate-acero.svg"
+  }
+]
