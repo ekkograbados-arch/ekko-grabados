@@ -230,13 +230,13 @@ const productInfo = {
             canvas.setActiveObject(text);
         }
 
-        function addTemplate(num) {
+      function addTemplate(num) {
 
     const url =
-        "https://raw.githubusercontent.com/ekkograbados-arch/personalizador-laser/main/templates/" +
+        "templates/" +
         String(num).padStart(3, '0') +
         ".svg";
-
+          
     fabric.loadSVGFromURL(
         url,
 
