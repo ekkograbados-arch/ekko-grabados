@@ -108,12 +108,35 @@
         ];
 
   
-        const mockups = {
-            "medalla-redonda": "https://raw.githubusercontent.com/ekkograbados-arch/personalizador-laser/main/mockups/medalla-redonda.svg",
-            "medalla-militar": "https://raw.githubusercontent.com/ekkograbados-arch/personalizador-laser/main/mockups/medalla-militar.png2.png",
-            "mate-acero": "https://raw.githubusercontent.com/ekkograbados-arch/personalizador-laser/main/mockups/mate-acero.svg"
-        };
+       const mockups = {
+    "medalla-redonda": "mockups/medalla-redonda.svg",
+    "medalla-militar": "mockups/medalla-militar.png",
+    "mate-acero": "mockups/mate-acero.svg"
+        
+};
 
+const productInfo = {
+
+    "medalla-redonda": {
+        nombre: "Medalla Redonda",
+        ancho_mm: 25,
+        alto_mm: 25
+    },
+
+    "medalla-militar": {
+        nombre: "Medalla Militar",
+        ancho_mm: 45,
+        alto_mm: 25
+    },
+
+    "mate-acero": {
+        nombre: "Mate Acero",
+        ancho_mm: 60,
+        alto_mm: 60
+    }
+
+};
+        
         function loadCustomFonts() {
             const select = document.getElementById('fontSelect');
             select.innerHTML = '';
@@ -144,18 +167,35 @@
             if (states[tab]) canvas.loadFromJSON(states[tab], () => canvas.renderAll());
         }
 
-        function loadMockup() {
+ function loadMockup() {
 
     const product =
         document.getElementById('productSelect').value;
 
+    const mockupUrl =
+        mockups[product];
+
+    if (!mockupUrl) {
+
+        console.error(
+            "No existe mockup para:",
+            product
+        );
+
+        return;
+    }
+
     fabric.Image.fromURL(
-        mockups[product],
+
+        mockupUrl,
 
         function(img) {
 
             img.scaleToWidth(550);
+
             img.selectable = false;
+
+            img.evented = false;
 
             canvas.setBackgroundImage(
                 img,
@@ -168,7 +208,6 @@
         }
     );
 }
-
         document.getElementById('imageUpload').addEventListener('change', e => {
             const reader = new FileReader();
             reader.onload = ev => {
