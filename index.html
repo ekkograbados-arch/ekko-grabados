@@ -212,11 +212,15 @@
             }
         }
 
-        window.onload = () => {
-            loadCustomFonts();
-            createCanvas();
-            loadMockup();
-        };
+       window.onload = () => {
+    loadCustomFonts();
+    createCanvas();
+
+    canvas.setBackgroundColor(
+        '#ffffff',
+        canvas.renderAll.bind(canvas)
+    );
+};
     </script>
 </body>
 </html>
