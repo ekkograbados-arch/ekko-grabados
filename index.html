@@ -163,20 +163,70 @@ const productInfo = {
             loadMockup();
             if (states[tab]) canvas.loadFromJSON(states[tab], () => canvas.renderAll());
         }
+let products = [];
 
- function loadMockup() {
+async function loadProducts() {
 
-    const product =
-        document.getElementById('productSelect').value;
+    try {
 
-    const mockupUrl =
-        mockups[product];
+        const response =
+            await fetch('products.json');
 
-    if (!mockupUrl) {
+        products =
+            await response.json();
+
+        const select =
+            document.getElementById('productSelect');
+
+        select.innerHTML = '';
+
+        products.forEach(product => {
+
+            const option =
+                document.createElement('option');
+
+            option.value =
+                product.id;
+
+            option.textContent =
+                product.nombre;
+
+            select.appendChild(option);
+
+        });
+
+        loadMockup();
+
+    }
+    catch(error) {
 
         console.error(
-            "No existe mockup para:",
-            product
+            "Error cargando products.json",
+            error
+        );
+    }
+}
+        document
+.getElementById('productSelect')
+.addEventListener(
+    'change',
+    loadMockup
+);
+ function loadMockup() {
+
+    const productId =
+        document.getElementById('productSelect').value;
+
+    const product =
+        products.find(
+            p => p.id === productId
+        );
+
+    if (!product) {
+
+        console.error(
+            "Producto no encontrado:",
+            productId
         );
 
         return;
@@ -184,7 +234,7 @@ const productInfo = {
 
     fabric.Image.fromURL(
 
-        mockupUrl,
+        product.mockup,
 
         function(img) {
 
@@ -312,7 +362,7 @@ const productInfo = {
         );
     }
 }
-       window.onload = () => {
+      window.onload = async () => {
 
     loadCustomFonts();
 
@@ -323,6 +373,7 @@ const productInfo = {
         canvas.renderAll.bind(canvas)
     );
 
+    await loadProducts();
 };
     </script>
 </body>
