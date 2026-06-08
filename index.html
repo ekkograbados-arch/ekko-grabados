@@ -77,10 +77,12 @@
         </div>
     </div>
 
-    <script>
-        let states = { 0: null, 1: null };
-        let currentTab = 0;
-        let canvas = null;
+  <script>
+    let states = { 0: null, 1: null };
+    let currentTab = 0;
+    let canvas = null;
+
+    let workAreaGuide = null;
 
 
         const customFonts = [
@@ -154,7 +156,41 @@ const productInfo = {
             if (canvas) canvas.dispose();
             canvas = new fabric.Canvas('canvas', { preserveObjectStacking: true, enableRetinaScaling: true });
         }
+function drawWorkArea(product) {
 
+    if (workAreaGuide) {
+        canvas.remove(workAreaGuide);
+        workAreaGuide = null;
+    }
+
+    if (!product.workArea) return;
+
+    workAreaGuide = new fabric.Rect({
+
+        left: product.workArea.x,
+        top: product.workArea.y,
+
+        width: product.workArea.width,
+        height: product.workArea.height,
+
+        fill: 'rgba(0,0,0,0)',
+
+        stroke: '#666',
+
+        strokeDashArray: [10, 5],
+
+        selectable: false,
+        evented: false,
+
+        excludeFromExport: true
+    });
+
+    canvas.add(workAreaGuide);
+
+    workAreaGuide.sendToBack();
+
+    canvas.renderAll();
+}
         function switchTab(tab) {
             if (canvas) states[currentTab] = canvas.toJSON();
             currentTab = tab;
@@ -245,9 +281,16 @@ async function loadProducts() {
             img.evented = false;
 
             canvas.setBackgroundImage(
-                img,
-                canvas.renderAll.bind(canvas)
-            );
+
+    img,
+
+    function() {
+
+        drawWorkArea(product);
+
+        canvas.renderAll();
+    }
+);
         },
 
         {
