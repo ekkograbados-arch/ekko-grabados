@@ -38,6 +38,34 @@
     margin-top:15px;
 }
 
+.galeria{
+    padding:40px 20px;
+    text-align:center;
+}
+
+.galeria h2{
+    margin-bottom:25px;
+}
+
+.grid-galeria{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+    max-width:1200px;
+    margin:auto;
+}
+
+.grid-galeria img{
+    width:100%;
+    border-radius:12px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.grid-galeria img:hover{
+    transform:scale(1.03);
+}
+        
 .beneficios span{
     background:#f0f0f0;
     padding:8px 12px;
