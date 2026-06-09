@@ -72,7 +72,50 @@
     border-radius:20px;
     font-size:14px;
 }
-        
+        .footer-ekko{
+    background:#111;
+    color:white;
+    text-align:center;
+    padding:40px 20px;
+    margin-top:60px;
+}
+
+.footer-logo{
+    max-width:120px;
+    margin-bottom:15px;
+}
+
+.footer-ekko h3{
+    margin-bottom:10px;
+}
+
+.footer-ekko p{
+    margin:8px 0;
+}
+
+.footer-social{
+    margin-top:20px;
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:15px;
+}
+
+.footer-social a{
+    color:white;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+.footer-social a:hover{
+    text-decoration:underline;
+}
+
+.copyright{
+    margin-top:25px;
+    opacity:0.7;
+    font-size:14px;
+}
     </style>
 </head>
 <body>
@@ -504,5 +547,40 @@ async function loadProducts() {
     await loadProducts();
 };
     </script>
+
+<footer class="footer-ekko">
+
+    <img src="logo.png" alt="Ekko Grabados" class="footer-logo">
+
+    <h3>Ekko Grabados</h3>
+
+    <p>❤️ Diseños únicos para regalar</p>
+
+    <p>📍 Trelew, Chubut - Argentina</p>
+
+    <p>🚚 Envíos a todo el país</p>
+
+    <p>💳 Transferencia | Mercado Pago | Débito | Crédito</p>
+
+    <div class="footer-social">
+
+        <a href="https://www.instagram.com/grabados_ekko/" target="_blank">Instagram</a>
+
+        <a href="https://www.facebook.com/profile.php?id=61581674110806" target="_blank">Facebook</a>
+
+        <a href="https://www.youtube.com/@EKKOGRABADOS" target="_blank">YouTube</a>
+
+        <a href="https://www.tiktok.com/@ekko.grabados" target="_blank">TikTok</a>
+
+        <a href="https://wa.me/5492804719686" target="_blank">WhatsApp</a>
+
+    </div>
+
+    <p class="copyright">
+        © 2026 Ekko Grabados - Todos los derechos reservados
+    </p>
+
+</footer>
+    
 </body>
 </html>
