@@ -19,131 +19,22 @@
         .controls { min-width:320px; }
         .template-btn { width:48%; font-size:14px; margin-bottom:8px; }
         .download-btn { background:#28a745 !important; padding:14px; font-size:16px; font-weight:bold; }
-
-.hero{
-    text-align:center;
-    margin-bottom:25px;
-}
-
-.logo{
-    max-height:120px;
-    margin-bottom:10px;
-}
-
-.beneficios{
-    display:flex;
-    justify-content:center;
-    gap:15px;
-    flex-wrap:wrap;
-    margin-top:15px;
-}
-
-.galeria{
-    padding:40px 20px;
-    text-align:center;
-}
-
-.galeria h2{
-    margin-bottom:25px;
-}
-
-.grid-galeria{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-    gap:20px;
-    max-width:1200px;
-    margin:auto;
-}
-
-.grid-galeria img{
-    width:100%;
-    border-radius:12px;
-    cursor:pointer;
-    transition:0.3s;
-}
-
-.grid-galeria img:hover{
-    transform:scale(1.03);
-}
-        
-.beneficios span{
-    background:#f0f0f0;
-    padding:8px 12px;
-    border-radius:20px;
-    font-size:14px;
-}
-.footer-ekko{
-    background:#111;
-    color:white;
-    text-align:center;
-    padding:40px 20px;
-}
-
-.footer-logo{
-    width:120px;
-    height:auto;
-    margin-bottom:15px;
-}
-
-.footer-social{
-    margin-top:20px;
-    display:flex;
-    justify-content:center;
-    flex-wrap:wrap;
-    gap:15px;
-}
-
-.footer-social img{
-    width:48px;
-    height:48px;
-    transition:0.3s;
-}
-
-.footer-social img:hover{
-    transform:scale(1.15);
-}
-
-.copyright{
-    margin-top:20px;
-    opacity:0.7;
-    font-size:14px;
-}
+        .remove-bg-btn { background:#e74c3c !important; color:white; font-weight:bold; }
     </style>
 </head>
 <body>
     <div class="container">
-     <div class="hero">
-
-    <img src="logo.png" class="logo" alt="EKKO Grabados">
-
-    <h1>EKKO Grabados Láser</h1>
-
-    <p>
-        Diseñá tu grabado online y visualizalo antes de realizar tu pedido.
-    </p>
-
-    <div class="beneficios">
-        <span>🚚 Envíos a todo el país</span>
-        <span>💳 Cuotas disponibles</span>
-        <span>🎁 Diseños personalizados para regalar</span>
-        <span>⚡ Contactos</span>
-    </div>
-<section class="galeria">
-    <h2>❤️ Diseños personalizados para regalar</h2>
-
-    <div class="grid-galeria">
-
-        <img src="ejemplos/CADENAS-BEBE-MATEO.png" alt="">
-        <img src="ejemplos/CHAPITA-BEBE-00.png" alt="">
-        <img src="ejemplos/CHAPITA-BEBE-01.png" alt="">
-        <img src="ejemplos/CHAPITA-BEBE-02.png" alt="">
-        <img src="ejemplos/CHAPITA-BEBE-03.png" alt="">
-        <img src="ejemplos/CHAPITA-BEBE-MATEO.png" alt="">
-        <img src="ejemplos/CHAPITA-BEBE-SOFIA.png" alt="">
-
-    </div>
-</section>
-</div>
+        <!-- Tu sección hero y galería -->
+        <div class="hero">
+            <img src="logo.png" class="logo" alt="EKKO Grabados">
+            <h1>EKKO Grabados Láser</h1>
+            <p>Diseñá tu grabado online y visualizalo antes de realizar tu pedido.</p>
+            <div class="beneficios">
+                <span>🚚 Envíos a todo el país</span>
+                <span>💳 Cuotas disponibles</span>
+                <span>🎁 Diseños personalizados para regalar</span>
+            </div>
+        </div>
 
         <div class="tabs">
             <button class="tab active" onclick="switchTab(0)">Frente</button>
@@ -157,11 +48,15 @@
 
             <div class="controls">
                 <h3>Producto</h3>
-               <select id="productSelect">
+                <select id="productSelect" onchange="loadMockup()">
+                    <option value="medalla-redonda">Medalla Redonda</option>
+                    <option value="medalla-militar">Medalla Tipo Militar</option>
+                    <option value="mate-acero">Mate de Acero</option>
                 </select>
 
                 <h3>Subir Imagen/Logo</h3>
                 <input type="file" id="imageUpload" accept="image/*">
+                <button onclick="removeBackground()" class="remove-bg-btn">🪄 Quitar Fondo Automático</button>
 
                 <h3>Agregar Texto</h3>
                 <input type="text" id="textInput" placeholder="Escribe tu frase...">
@@ -197,15 +92,12 @@
         </div>
     </div>
 
-  <script>
-    let states = { 0: null, 1: null };
-    let currentTab = 0;
-    let canvas = null;
+    <script>
+        let states = { 0: null, 1: null };
+        let currentTab = 0;
+        let canvas = null;
 
-    let workAreaGuide = null;
-
-
-        const customFonts = [
+const customFonts = [
             { name: "Arial", family: "Arial" },
             { name: "Times New Roman", family: "Times New Roman" },
             { name: "Waltograph", family: "Waltograph", url: "https://raw.githubusercontent.com/ekkograbados-arch/personalizador-laser/fa3023b254c729ef41d870b84bfeab70dc5c5d54/fonts/waltograph42.otf" },
@@ -226,36 +118,12 @@
             { name: "Study Person", family: "Study Person", url: "https://raw.githubusercontent.com/ekkograbados-arch/personalizador-laser/52f9231774d61702e7c82447a21d254229e7b7f3/fonts/Study%20Person.otf" }
         ];
 
-  
-       const mockups = {
-    "medalla-redonda": "mockups/medalla-redonda.svg",
-    "medalla-militar": "mockups/medalla-militar.png",
-    "mate-acero": "mockups/mate-acero.svg"
-        
-};
+        const mockups = {
+            "medalla-redonda": "https://raw.githubusercontent.com/ekkograbados-arch/personalizador-laser/main/mockups/medalla-redonda.svg",
+            "medalla-militar": "https://raw.githubusercontent.com/ekkograbados-arch/personalizador-laser/main/mockups/medalla-militar.png2.png",
+            "mate-acero": "https://raw.githubusercontent.com/ekkograbados-arch/personalizador-laser/main/mockups/mate-acero.svg"
+        };
 
-const productInfo = {
-
-    "medalla-redonda": {
-        nombre: "Medalla Redonda",
-        ancho_mm: 25,
-        alto_mm: 25
-    },
-
-    "medalla-militar": {
-        nombre: "Medalla Militar",
-        ancho_mm: 45,
-        alto_mm: 25
-    },
-
-    "mate-acero": {
-        nombre: "Mate Acero",
-        ancho_mm: 60,
-        alto_mm: 60
-    }
-
-};
-        
         function loadCustomFonts() {
             const select = document.getElementById('fontSelect');
             select.innerHTML = '';
@@ -276,41 +144,7 @@ const productInfo = {
             if (canvas) canvas.dispose();
             canvas = new fabric.Canvas('canvas', { preserveObjectStacking: true, enableRetinaScaling: true });
         }
-function drawWorkArea(product) {
 
-    if (workAreaGuide) {
-        canvas.remove(workAreaGuide);
-        workAreaGuide = null;
-    }
-
-    if (!product.workArea) return;
-
-    workAreaGuide = new fabric.Rect({
-
-        left: product.workArea.x,
-        top: product.workArea.y,
-
-        width: product.workArea.width,
-        height: product.workArea.height,
-
-        fill: 'rgba(0,0,0,0)',
-
-        stroke: '#666',
-
-        strokeDashArray: [10, 5],
-
-        selectable: false,
-        evented: false,
-
-        excludeFromExport: true
-    });
-
-    canvas.add(workAreaGuide);
-
-    workAreaGuide.sendToBack();
-
-    canvas.renderAll();
-}
         function switchTab(tab) {
             if (canvas) states[currentTab] = canvas.toJSON();
             currentTab = tab;
@@ -319,105 +153,66 @@ function drawWorkArea(product) {
             loadMockup();
             if (states[tab]) canvas.loadFromJSON(states[tab], () => canvas.renderAll());
         }
-let products = [];
 
-async function loadProducts() {
-
-    try {
-
-        const response =
-            await fetch('products.json');
-
-        products =
-            await response.json();
-
-        const select =
-            document.getElementById('productSelect');
-
-        select.innerHTML = '';
-
-        products.forEach(product => {
-
-            const option =
-                document.createElement('option');
-
-            option.value =
-                product.id;
-
-            option.textContent =
-                product.nombre;
-
-            select.appendChild(option);
-
-        });
-
-        loadMockup();
-
-    }
-    catch(error) {
-
-        console.error(
-            "Error cargando products.json",
-            error
-        );
-    }
-}
-        document
-.getElementById('productSelect')
-.addEventListener(
-    'change',
-    loadMockup
-);
- function loadMockup() {
-
-    const productId =
-        document.getElementById('productSelect').value;
-
-    const product =
-        products.find(
-            p => p.id === productId
-        );
-
-    if (!product) {
-
-        console.error(
-            "Producto no encontrado:",
-            productId
-        );
-
-        return;
-    }
-
-    fabric.Image.fromURL(
-
-        product.mockup,
-
-        function(img) {
-
-            img.scaleToWidth(550);
-
-            img.selectable = false;
-
-            img.evented = false;
-
-            canvas.setBackgroundImage(
-
-    img,
-
-    function() {
-
-        drawWorkArea(product);
-
-        canvas.renderAll();
-    }
-);
-        },
-
-        {
-            crossOrigin: 'anonymous'
+        function loadMockup() {
+            const product = document.getElementById('productSelect').value;
+            fabric.Image.fromURL(mockups[product], img => {
+                img.scaleToWidth(550);
+                img.selectable = false;
+                canvas.setBackgroundImage(img, canvas.renderAll.bind(canvas));
+            }, () => {
+                canvas.setBackgroundColor('#e8e8e8', canvas.renderAll.bind(canvas));
+            });
         }
-    );
-}
+
+        // === QUITAR FONDO ===
+        async function removeBackground() {
+            const active = canvas.getActiveObject();
+            if (!active || active.type !== 'image') {
+                return alert("⚠️ Selecciona primero una imagen en el canvas");
+            }
+
+            const apiKey = prompt("Ingresa tu API Key de Remove.bg (gratuita en remove.bg):");
+            if (!apiKey) return;
+
+            try {
+                const dataURL = active.toDataURL({ format: 'png' });
+                const formData = new FormData();
+                formData.append('image_file_b64', dataURL.split(',')[1]);
+                formData.append('size', 'auto');
+
+                const response = await fetch('https://api.remove.bg/v1.0/removebg', {
+                    method: 'POST',
+                    headers: { 'X-Api-Key': apiKey },
+                    body: formData
+                });
+
+                if (response.ok) {
+                    const blob = await response.blob();
+                    const url = URL.createObjectURL(blob);
+
+                    fabric.Image.fromURL(url, newImg => {
+                        newImg.set({
+                            left: active.left,
+                            top: active.top,
+                            scaleX: active.scaleX,
+                            scaleY: active.scaleY
+                        });
+                        canvas.remove(active);
+                        canvas.add(newImg);
+                        canvas.setActiveObject(newImg);
+                        canvas.renderAll();
+                        alert("✅ Fondo removido correctamente!");
+                    });
+                } else {
+                    alert("Error en Remove.bg. Verifica tu API Key.");
+                }
+            } catch (e) {
+                alert("Error al conectar con Remove.bg");
+            }
+        }
+
+        // Resto de funciones (addText, addTemplate, addQR, exportCurrentSide)
         document.getElementById('imageUpload').addEventListener('change', e => {
             const reader = new FileReader();
             reader.onload = ev => {
@@ -440,43 +235,18 @@ async function loadProducts() {
             canvas.setActiveObject(text);
         }
 
-      function addTemplate(num) {
-
-    const url =
-        "templates/" +
-        String(num).padStart(3, '0') +
-        ".svg";
-          
-    fabric.loadSVGFromURL(
-        url,
-
-        function(objects, options) {
-
-            const obj =
-                fabric.util.groupSVGElements(
-                    objects,
-                    options
-                );
-
-            obj.scaleToWidth(160);
-
-            obj.set({
-                left: 180 + Math.random() * 100,
-                top: 180 + Math.random() * 100
+        function addTemplate(num) {
+            const url = "https://raw.githubusercontent.com/ekkograbados-arch/personalizador-laser/main/templates/" + String(num).padStart(3, '0') + ".svg";
+            fabric.loadSVGFromURL(url, function(objects, options) {
+                const obj = fabric.util.groupSVGElements(objects, options);
+                obj.scaleToWidth(160);
+                obj.set({ left: 180 + Math.random()*100, top: 180 + Math.random()*100 });
+                canvas.add(obj);
+                canvas.setActiveObject(obj);
+                canvas.renderAll();
             });
-
-            canvas.add(obj);
-
-            canvas.setActiveObject(obj);
-
-            canvas.renderAll();
-        },
-
-        function(error) {
-            console.error("Error SVG:", error);
         }
-    );
-}
+
         async function addQR() {
             let url = document.getElementById('qrLink').value.trim();
             if (!url) return alert("Ingresa un enlace");
@@ -490,103 +260,21 @@ async function loadProducts() {
         }
 
         function exportCurrentSide() {
+            try {
+                const link = document.createElement('a');
+                link.download = currentTab === 0 ? 'grabado-frente.png' : 'grabado-dorso.png';
+                link.href = canvas.toDataURL({ format: 'png', multiplier: 2 });
+                link.click();
+            } catch (e) {
+                alert("No se pudo descargar automáticamente.\n\nPrueba clic derecho sobre el canvas → Guardar imagen como...");
+            }
+        }
 
-    try {
-
-        const dataURL = canvas.toDataURL({
-            format: 'png',
-            multiplier: 2
-        });
-
-        const link = document.createElement('a');
-
-        link.href = dataURL;
-
-        link.download =
-            currentTab === 0
-            ? 'grabado-frente.png'
-            : 'grabado-dorso.png';
-
-        document.body.appendChild(link);
-
-        link.click();
-
-        document.body.removeChild(link);
-
-    } catch (e) {
-
-        console.error("ERROR EXPORTANDO:", e);
-
-        alert(
-            "Error exportando:\n\n" +
-            e.name +
-            "\n\n" +
-            e.message
-        );
-    }
-}
-      window.onload = async () => {
-
-    loadCustomFonts();
-
-    createCanvas();
-
-    canvas.setBackgroundColor(
-        '#ffffff',
-        canvas.renderAll.bind(canvas)
-    );
-
-    await loadProducts();
-};
+        window.onload = () => {
+            loadCustomFonts();
+            createCanvas();
+            loadMockup();
+        };
     </script>
-
-<footer class="footer-ekko">
-
-    <img src="LOGO-FONDO CIRCULO.png" class="footer-logo" alt="Ekko Grabados">
-
-    <h3>Ekko Grabados</h3>
-
-    <p>❤️ Diseños únicos para regalar</p>
-
-    <p>📍 Trelew, Chubut - Argentina</p>
-
-    <p>🚚 Envíos a todo el país</p>
-
-    <p>💳 Transferencia | Mercado Pago | Débito | Crédito</p>
-
-    <div class="footer-social">
-
-        <a href="https://www.instagram.com/grabados_ekko/" target="_blank">
-            <img src="ASSETS/social/INSTAGRAM_.png" alt="Instagram">
-        </a>
-
-        <a href="https://www.facebook.com/profile.php?id=61581674110806" target="_blank">
-            <img src="ASSETS/social/FACEBOOK_.png" alt="Facebook">
-        </a>
-
-        <a href="https://www.youtube.com/@EKKOGRABADOS" target="_blank">
-            <img src="ASSETS/social/YOUTUBE.png" alt="YouTube">
-        </a>
-
-        <a href="https://www.tiktok.com/@ekko.grabados" target="_blank">
-            <img src="ASSETS/social/TIKTOK.png" alt="TikTok">
-        </a>
-
-        <a href="https://wa.me/5492804719686" target="_blank">
-            <img src="ASSETS/social/WHATSAPP_BUSINESS.png" alt="WhatsApp">
-        </a>
-
-        <a href="https://drive.google.com/drive/folders/1Bt0BAnpn3WCMd9mUCAMnc5Bdg6DxJHqK?usp=sharing" target="_blank">
-            <img src="ASSETS/social/DRIVE.png" alt="Drive">
-        </a>
-
-    </div>
-
-    <p class="copyright">
-        © 2026 Ekko Grabados - Todos los derechos reservados
-    </p>
-
-</footer>
-    
 </body>
 </html>
