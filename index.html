@@ -112,7 +112,15 @@
 .product-info ul{
     padding-left:18px;
 }
-    
+     .product-info select{
+
+    width:100%;
+    padding:10px;
+    margin-top:5px;
+    border-radius:8px;
+    border:1px solid #ccc;
+
+} 
     </style>
 </head>
 <body>
@@ -335,30 +343,48 @@ async function loadProducts() {
         return;
     }
 showProductInfo(product);
-     function showProductOptions(product){
+   function showProductOptions(product){
 
     let html = "";
 
-    // CHAPITAS
-
     if(product.id.includes("chapita")){
 
-       
+        html += `
+        <h3>Opciones</h3>
+
+        <label>Accesorio</label>
+
+        <select
+            id="accesorioChapita"
+            onchange="actualizarOpcionesChapita()"
+        >
+
+            <option value="argolla">
+                Argolla estándar
+            </option>
+
+            <option value="llavero">
+                Llavero + Estuche
+            </option>
+
+            <option value="cadena">
+                Cadena + Estuche
+            </option>
+
+        </select>
+
+        <div id="opcionesEstuche"></div>
+        `;
     }
-
-    // PRODUCTOS CON ESTUCHE
-
 
     document.getElementById(
         "productOptions"
     ).innerHTML = html;
-         if(product.id.includes("chapita")){
 
-    actualizarOpcionesChapita();
-
+    if(product.id.includes("chapita")){
+        actualizarOpcionesChapita();
+    }
 }
-}
-
 function actualizarOpcionesChapita(){
 
     const accesorio =
@@ -413,35 +439,7 @@ function actualizarOpcionesChapita(){
     ).innerHTML = html;
 }
      
-showProductOptions(product);
-     html += `
-<h3>Opciones</h3>
 
-<label>
-    Accesorio
-</label>
-
-<select
-    id="accesorioChapita"
-    onchange="actualizarOpcionesChapita()"
->
-
-    <option value="argolla">
-        Argolla estándar
-    </option>
-
-    <option value="llavero">
-        Llavero + Estuche
-    </option>
-
-    <option value="cadena">
-        Cadena + Estuche
-    </option>
-
-</select>
-
-<div id="opcionesEstuche"></div>
-`;
 fabric.Image.fromURL(
     product.mockupMedidas || product.mockup,
         function(img) {
@@ -657,15 +655,7 @@ function showProductInfo(product){
     <p class="copyright">
         © 2026 Ekko Grabados - Todos los derechos reservados
     </p>
-    .product-info select{
-
-    width:100%;
-    padding:10px;
-    margin-top:5px;
-    border-radius:8px;
-    border:1px solid #ccc;
-
-}
+  
 </footer>
    
 </body>
