@@ -155,6 +155,7 @@
                <select id="productSelect">
                 </select>
                 <div id="productInfo" class="product-info"></div>
+                <div id="productOptions" class="product-info"></div>
                 
                 <h3>Subir Imagen/Logo</h3>
                 <input type="file" id="imageUpload" accept="image/*">
@@ -334,7 +335,73 @@ async function loadProducts() {
         return;
     }
 showProductInfo(product);
+     function showProductOptions(product){
 
+    let html = "";
+
+    // CHAPITAS
+
+    if(product.id.includes("chapita")){
+
+        html += `
+        <h3>Opciones</h3>
+
+        <label>
+            Accesorio
+        </label>
+
+        <select id="accesorioChapita">
+
+            <option value="argolla">
+                Argolla estándar
+            </option>
+
+            <option value="llavero">
+                Llavero + Estuche
+            </option>
+
+            <option value="cadena">
+                Cadena + Estuche
+            </option>
+
+        </select>
+        `;
+    }
+
+    // PRODUCTOS CON ESTUCHE
+
+    if(product.estuches){
+
+        html += `
+        <br><br>
+
+        <label>
+            Color de Estuche
+        </label>
+
+        <select id="colorEstuche">
+        `;
+
+        product.estuches.forEach(color=>{
+
+            html += `
+            <option>
+                ${color}
+            </option>
+            `;
+
+        });
+
+        html += `
+        </select>
+        `;
+    }
+
+    document.getElementById(
+        "productOptions"
+    ).innerHTML = html;
+}
+showProductOptions(product);
      
 fabric.Image.fromURL(
     product.mockupMedidas || product.mockup,
@@ -551,6 +618,15 @@ function showProductInfo(product){
     <p class="copyright">
         © 2026 Ekko Grabados - Todos los derechos reservados
     </p>
+    .product-info select{
+
+    width:100%;
+    padding:10px;
+    margin-top:5px;
+    border-radius:8px;
+    border:1px solid #ccc;
+
+}
 </footer>
    
 </body>
