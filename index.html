@@ -95,6 +95,24 @@
     opacity:0.7;
     font-size:14px;
 }
+.product-info{
+    margin-top:15px;
+    padding:12px;
+    background:#fff;
+    border-radius:10px;
+    border:1px solid #ddd;
+    font-size:14px;
+    line-height:1.5;
+}
+
+.product-info h3{
+    margin-bottom:10px;
+}
+
+.product-info ul{
+    padding-left:18px;
+}
+    
     </style>
 </head>
 <body>
@@ -136,6 +154,8 @@
                 <h3>Producto</h3>
                <select id="productSelect">
                 </select>
+                <div id="productInfo" class="product-info"></div>
+                
                 <h3>Subir Imagen/Logo</h3>
                 <input type="file" id="imageUpload" accept="image/*">
                 <h3>Agregar Texto</h3>
@@ -313,6 +333,9 @@ async function loadProducts() {
         );
         return;
     }
+showProductInfo(product);
+
+     
 fabric.Image.fromURL(
     product.mockupMedidas || product.mockup,
         function(img) {
@@ -332,6 +355,78 @@ fabric.Image.fromURL(
         }
     );
 }
+function showProductInfo(product){
+
+    let html = `
+        <h3>${product.nombre}</h3>
+        <p><strong>Precio:</strong> $${product.precio}</p>
+        <p><strong>Stock:</strong> ${product.stock}</p>
+    `;
+
+    if(product.incluye){
+        html += "<p><strong>Incluye:</strong></p><ul>";
+
+        product.incluye.forEach(item=>{
+            html += `<li>${item}</li>`;
+        });
+
+        html += "</ul>";
+    }
+
+    if(product.estuches){
+        html += `
+            <p>
+                <strong>Colores de estuche:</strong>
+                ${product.estuches.join(", ")}
+            </p>
+        `;
+    }
+
+    html += `
+        <p><strong>Área de grabado:</strong></p>
+        <ul>
+    `;
+
+    product.superficies.forEach(s=>{
+
+        if(s.ancho_mm){
+
+            html += `
+                <li>
+                    ${s.nombre}:
+                    ${s.ancho_mm} x ${s.alto_mm} mm
+                </li>
+            `;
+
+        } else if(s.diametro_mm){
+
+            html += `
+                <li>
+                    ${s.nombre}:
+                    Ø ${s.diametro_mm} mm
+                </li>
+            `;
+
+        } else if(s.diametro_exterior_mm){
+
+            html += `
+                <li>
+                    ${s.nombre}:
+                    Ø Ext. ${s.diametro_exterior_mm} mm /
+                    Ø Int. ${s.diametro_interior_mm} mm
+                </li>
+            `;
+        }
+
+    });
+
+    html += "</ul>";
+
+    document.getElementById(
+        "productInfo"
+    ).innerHTML = html;
+}
+      
         document.getElementById('imageUpload').addEventListener('change', e => {
             const reader = new FileReader();
             reader.onload = ev => {
