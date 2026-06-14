@@ -342,30 +342,35 @@ showProductInfo(product);
     // CHAPITAS
 
     if(product.id.includes("chapita")){
+html += `
+<h3>Opciones</h3>
 
-        html += `
-        <h3>Opciones</h3>
+<label>
+    Accesorio
+</label>
 
-        <label>
-            Accesorio
-        </label>
+<select
+    id="accesorioChapita"
+    onchange="actualizarOpcionesChapita()"
+>
 
-        <select id="accesorioChapita">
+    <option value="argolla">
+        Argolla estándar
+    </option>
 
-            <option value="argolla">
-                Argolla estándar
-            </option>
+    <option value="llavero">
+        Llavero + Estuche
+    </option>
 
-            <option value="llavero">
-                Llavero + Estuche
-            </option>
+    <option value="cadena">
+        Cadena + Estuche
+    </option>
 
-            <option value="cadena">
-                Cadena + Estuche
-            </option>
+</select>
 
-        </select>
-        `;
+<div id="opcionesEstuche"></div>
+`;
+       
     }
 
     // PRODUCTOS CON ESTUCHE
@@ -400,9 +405,41 @@ showProductInfo(product);
     document.getElementById(
         "productOptions"
     ).innerHTML = html;
+         if(product.id.includes("chapita")){
+
+    actualizarOpcionesChapita();
+
+}
 }
 showProductOptions(product);
-     
+     html += `
+<h3>Opciones</h3>
+
+<label>
+    Accesorio
+</label>
+
+<select
+    id="accesorioChapita"
+    onchange="actualizarOpcionesChapita()"
+>
+
+    <option value="argolla">
+        Argolla estándar
+    </option>
+
+    <option value="llavero">
+        Llavero + Estuche
+    </option>
+
+    <option value="cadena">
+        Cadena + Estuche
+    </option>
+
+</select>
+
+<div id="opcionesEstuche"></div>
+`;
 fabric.Image.fromURL(
     product.mockupMedidas || product.mockup,
         function(img) {
