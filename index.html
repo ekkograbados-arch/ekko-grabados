@@ -343,102 +343,7 @@ async function loadProducts() {
         return;
     }
 showProductInfo(product);
-   function showProductOptions(product){
-
-    let html = "";
-
-    if(product.id.includes("chapita")){
-
-        html += `
-        <h3>Opciones</h3>
-
-        <label>Accesorio</label>
-
-        <select
-            id="accesorioChapita"
-            onchange="actualizarOpcionesChapita()"
-        >
-
-            <option value="argolla">
-                Argolla estándar
-            </option>
-
-            <option value="llavero">
-                Llavero + Estuche
-            </option>
-
-            <option value="cadena">
-                Cadena + Estuche
-            </option>
-
-        </select>
-
-        <div id="opcionesEstuche"></div>
-        `;
-    }
-
-    document.getElementById(
-        "productOptions"
-    ).innerHTML = html;
-
-    if(product.id.includes("chapita")){
-        actualizarOpcionesChapita();
-    }
-}
-function actualizarOpcionesChapita(){
-
-    const accesorio =
-        document.getElementById(
-            "accesorioChapita"
-        ).value;
-
-    const productId =
-        document.getElementById(
-            "productSelect"
-        ).value;
-
-    const product =
-        products.find(
-            p => p.id === productId
-        );
-
-    let html = "";
-
-    if(
-        accesorio === "llavero" ||
-        accesorio === "cadena"
-    ){
-
-        html += `
-        <br>
-
-        <label>
-            Color de Estuche
-        </label>
-
-        <select id="colorEstuche">
-        `;
-
-        product.estuches.forEach(color=>{
-
-            html += `
-            <option>
-                ${color}
-            </option>
-            `;
-
-        });
-
-        html += `
-        </select>
-        `;
-    }
-
-    document.getElementById(
-        "opcionesEstuche"
-    ).innerHTML = html;
-}
-     
+  
 
 fabric.Image.fromURL(
     product.mockupMedidas || product.mockup,
@@ -530,7 +435,104 @@ function showProductInfo(product){
         "productInfo"
     ).innerHTML = html;
 }
-      
+
+
+function showProductOptions(product){
+
+    let html = "";
+
+    if(product.id.includes("chapita")){
+
+        html += `
+        <h3>Opciones</h3>
+
+        <label>Accesorio</label>
+
+        <select
+            id="accesorioChapita"
+            onchange="actualizarOpcionesChapita()"
+        >
+
+            <option value="argolla">
+                Argolla estándar
+            </option>
+
+            <option value="llavero">
+                Llavero + Estuche
+            </option>
+
+            <option value="cadena">
+                Cadena + Estuche
+            </option>
+
+        </select>
+
+        <div id="opcionesEstuche"></div>
+        `;
+    }
+
+    document.getElementById(
+        "productOptions"
+    ).innerHTML = html;
+
+    if(product.id.includes("chapita")){
+        actualizarOpcionesChapita();
+    }
+}
+    function actualizarOpcionesChapita(){
+
+    const accesorio =
+        document.getElementById(
+            "accesorioChapita"
+        ).value;
+
+    const productId =
+        document.getElementById(
+            "productSelect"
+        ).value;
+
+    const product =
+        products.find(
+            p => p.id === productId
+        );
+
+    let html = "";
+
+    if(
+        accesorio === "llavero" ||
+        accesorio === "cadena"
+    ){
+
+        html += `
+        <br>
+
+        <label>
+            Color de Estuche
+        </label>
+
+        <select id="colorEstuche">
+        `;
+
+        product.estuches.forEach(color=>{
+
+            html += `
+            <option>
+                ${color}
+            </option>
+            `;
+
+        });
+
+        html += `
+        </select>
+        `;
+    }
+
+    document.getElementById(
+        "opcionesEstuche"
+    ).innerHTML = html;
+}
+   
         document.getElementById('imageUpload').addEventListener('change', e => {
             const reader = new FileReader();
             reader.onload = ev => {
