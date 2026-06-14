@@ -114,7 +114,12 @@
 "nombre": "Chapita Huesito 16x32",
 "precio": 999,
 "stock": 999,
-
+"estuches": [
+  "Blanco",
+  "Negro",
+  "Bordó",
+  "Azul"
+],
  "opciones": [
   "Argolla estándar",
   "Cadena",
@@ -143,7 +148,12 @@
 "nombre": "Chapita Huesito 21x40",
 "precio": 999,
 "stock": 999,
-
+"estuches": [
+  "Blanco",
+  "Negro",
+  "Bordó",
+  "Azul"
+],
  "opciones": [
   "Argolla estándar",
   "Cadena",
