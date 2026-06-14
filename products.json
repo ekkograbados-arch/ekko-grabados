@@ -5,7 +5,7 @@
 "precio": 999,
 "stock": 999,
 
-```
+
 "incluye": [
   "Grabado láser personalizado",
   "Cadena o llavero",
@@ -34,8 +34,7 @@
 
 "mockup": "mockups/medalla-militar.png",
 "mockupMedidas": "mockups-medidas/medalla-militar-25x45.png"
-```
-
+ 
 },
 
 {
@@ -44,7 +43,6 @@
 "precio": 999,
 "stock": 999,
 
-```
 "incluye": [
   "Grabado láser personalizado",
   "Cadena o llavero",
@@ -73,8 +71,7 @@
 
 "mockup": "mockups/medalla-militar.png",
 "mockupMedidas": "mockups-medidas/medalla-militar-29x50.png"
-```
-
+ 
 },
 
 {
@@ -83,8 +80,7 @@
 "precio": 999,
 "stock": 999,
 
-```
-"incluye": [
+ "incluye": [
   "Grabado láser personalizado",
   "Cadena o llavero",
   "Estuche"
@@ -110,8 +106,7 @@
 
 "mockup": "mockups/medalla-redonda.svg",
 "mockupMedidas": "mockups-medidas/medalla-redonda-25mm.png"
-```
-
+ 
 },
 
 {
@@ -120,8 +115,7 @@
 "precio": 999,
 "stock": 999,
 
-```
-"opciones": [
+ "opciones": [
   "Argolla estándar",
   "Cadena",
   "Llavero"
@@ -141,8 +135,7 @@
 ],
 
 "mockupMedidas": "mockups-medidas/chapita-huesito-16x32.png"
-```
-
+ 
 },
 
 {
@@ -151,8 +144,7 @@
 "precio": 999,
 "stock": 999,
 
-```
-"opciones": [
+ "opciones": [
   "Argolla estándar",
   "Cadena",
   "Llavero"
@@ -172,8 +164,7 @@
 ],
 
 "mockupMedidas": "mockups-medidas/chapita-huesito-21x40.png"
-```
-
+ 
 },
 
 {
@@ -182,8 +173,7 @@
 "precio": 999,
 "stock": 999,
 
-```
-"incluye": [
+ "incluye": [
   "Bombilla recta"
 ],
 
@@ -202,8 +192,7 @@
 
 "mockup": "mockups/mate-acero.svg",
 "mockupMedidas": "mockups-medidas/mate-acero.png"
-```
-
+ 
 },
 
 {
@@ -212,8 +201,7 @@
 "precio": 999,
 "stock": 999,
 
-```
-"incluye": [
+ "incluye": [
   "Bombilla recta"
 ],
 
@@ -226,8 +214,7 @@
 ],
 
 "mockupMedidas": "mockups-medidas/mate-algarrobo-sin-virola.png"
-```
-
+ 
 },
 
 {
@@ -236,8 +223,7 @@
 "precio": 999,
 "stock": 999,
 
-```
-"incluye": [
+ "incluye": [
   "Bombilla pico de loro"
 ],
 
@@ -257,8 +243,7 @@
 
 "mockupMedidas": "mockups-medidas/mate-de-algarrobo-con-virola.png",
 "mockupVirola": "mockups-medidas/virola-mate-de-algarrobo-con-virola.png"
-```
-
+ 
 },
 
 {
@@ -267,8 +252,7 @@
 "precio": 999,
 "stock": 999,
 
-```
-"incluye": [
+ "incluye": [
   "Estuche"
 ],
 
@@ -288,8 +272,7 @@
 ],
 
 "mockupMedidas": "mockups-medidas/pulsera-chica-5x30.png"
-```
-
+ 
 },
 
 {
@@ -298,8 +281,7 @@
 "precio": 999,
 "stock": 999,
 
-```
-"incluye": [
+ "incluye": [
   "Estuche"
 ],
 
@@ -319,7 +301,6 @@
 ],
 
 "mockupMedidas": "mockups-medidas/pulsera-grande-6X35.png"
-```
-
+ 
 }
 ]
