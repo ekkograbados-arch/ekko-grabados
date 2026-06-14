@@ -313,8 +313,8 @@ async function loadProducts() {
         );
         return;
     }
-    fabric.Image.fromURL(
-        product.mockup,
+fabric.Image.fromURL(
+    product.mockupMedidas || product.mockup,
         function(img) {
             img.scaleToWidth(550);
             img.selectable = false;
