@@ -436,11 +436,11 @@ function showProductInfo(product){
     ).innerHTML = html;
 }
 
-
 function showProductOptions(product){
 
     let html = "";
 
+    // CHAPITAS PARA MASCOTAS
     if(product.id.includes("chapita")){
 
         html += `
@@ -471,6 +471,32 @@ function showProductOptions(product){
         `;
     }
 
+    // RESTO DE PRODUCTOS CON ESTUCHE
+    else if(product.estuches){
+
+        html += `
+        <h3>Opciones</h3>
+
+        <label>Color de Estuche</label>
+
+        <select id="colorEstuche">
+        `;
+
+        product.estuches.forEach(color => {
+
+            html += `
+            <option value="${color}">
+                ${color}
+            </option>
+            `;
+
+        });
+
+        html += `
+        </select>
+        `;
+    }
+
     document.getElementById(
         "productOptions"
     ).innerHTML = html;
@@ -479,6 +505,7 @@ function showProductOptions(product){
         actualizarOpcionesChapita();
     }
 }
+
     function actualizarOpcionesChapita(){
 
     const accesorio =
