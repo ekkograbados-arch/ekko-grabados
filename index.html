@@ -265,25 +265,42 @@ const productInfo = {
             canvas = new fabric.Canvas('canvas', { preserveObjectStacking: true, enableRetinaScaling: true });
         }
 function drawWorkArea(product) {
+
     if (workAreaGuide) {
         canvas.remove(workAreaGuide);
         workAreaGuide = null;
     }
+
     if (!product.workArea) return;
+
     workAreaGuide = new fabric.Rect({
         left: product.workArea.x,
         top: product.workArea.y,
         width: product.workArea.width,
         height: product.workArea.height,
         fill: 'rgba(0,0,0,0)',
-        stroke: '#666',
-        strokeDashArray: [10, 5],
+        stroke: '#ff0000',
+        strokeWidth: 2,
+        strokeDashArray: [8,5],
         selectable: false,
         evented: false,
         excludeFromExport: true
     });
+
     canvas.add(workAreaGuide);
-    workAreaGuide.sendToBack();
+
+    const clipRect = new fabric.Rect({
+        left: product.workArea.x,
+        top: product.workArea.y,
+        width: product.workArea.width,
+        height: product.workArea.height,
+        absolutePositioned: true
+    });
+
+    canvas.clipPath = clipRect;
+
+    workAreaGuide.bringToFront();
+
     canvas.renderAll();
 }
         function switchTab(tab) {
@@ -576,7 +593,7 @@ function showProductOptions(product){
         function addText() {
             const textStr = document.getElementById('textInput').value || "Texto personalizado";
             const fontFamily = document.getElementById('fontSelect').value;
-            const text = new fabric.Text(textStr, { left: 150, top: 220, fontSize: 32, fontFamily: fontFamily, fill: '#222' });
+            const text = new fabric.Text(textStr, { left: 150, top: 220, fontSize: 32, fontFamily: fontFamily, fill: '#222',objectCaching: false });
             canvas.add(text);
             canvas.setActiveObject(text);
         }
