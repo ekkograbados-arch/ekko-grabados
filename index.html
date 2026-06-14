@@ -348,10 +348,43 @@ showProductInfo(product);
 
     // PRODUCTOS CON ESTUCHE
 
-    if(product.estuches){
+
+    document.getElementById(
+        "productOptions"
+    ).innerHTML = html;
+         if(product.id.includes("chapita")){
+
+    actualizarOpcionesChapita();
+
+}
+}
+
+function actualizarOpcionesChapita(){
+
+    const accesorio =
+        document.getElementById(
+            "accesorioChapita"
+        ).value;
+
+    const productId =
+        document.getElementById(
+            "productSelect"
+        ).value;
+
+    const product =
+        products.find(
+            p => p.id === productId
+        );
+
+    let html = "";
+
+    if(
+        accesorio === "llavero" ||
+        accesorio === "cadena"
+    ){
 
         html += `
-        <br><br>
+        <br>
 
         <label>
             Color de Estuche
@@ -376,14 +409,10 @@ showProductInfo(product);
     }
 
     document.getElementById(
-        "productOptions"
+        "opcionesEstuche"
     ).innerHTML = html;
-         if(product.id.includes("chapita")){
-
-    actualizarOpcionesChapita();
-
 }
-}
+     
 showProductOptions(product);
      html += `
 <h3>Opciones</h3>
