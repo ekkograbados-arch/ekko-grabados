@@ -150,10 +150,10 @@
     </div>
 </section>
 </div>
-        <div class="tabs">
-            <button class="tab active" onclick="switchTab(0)">Frente</button>
-            <button class="tab" onclick="switchTab(1)">Dorso</button>
-        </div>
+        
+        <div class="tabs" id="editorTabs">
+</div>
+        
         <div class="main">
             <div class="canvas-wrapper">
                 <canvas id="canvas" width="550" height="550" style="border:2px solid #ccc; border-radius:8px;"></canvas>
@@ -198,8 +198,43 @@
         </div>
     </div>
   <script>
-    let states = { 0: null, 1: null };
-    let currentTab = 0;
+
+let states = {};
+let currentTab = 0;
+let currentProduct = null;
+
+
+function generateTabs(product){
+
+    const tabsContainer =
+        document.getElementById("editorTabs");
+
+    tabsContainer.innerHTML = "";
+
+    product.editores.forEach((editor,index)=>{
+
+        const btn =
+            document.createElement("button");
+
+        btn.className =
+            index === 0
+            ? "tab active"
+            : "tab";
+
+        btn.innerText =
+            editor.nombre;
+
+        btn.onclick =
+            () => switchTab(index);
+
+        tabsContainer.appendChild(btn);
+
+    });
+
+}
+
+
+      
     let canvas = null;
     let workAreaGuide = null;
         const customFonts = [
@@ -303,14 +338,45 @@ function drawWorkArea(product) {
 
     canvas.renderAll();
 }
-        function switchTab(tab) {
-            if (canvas) states[currentTab] = canvas.toJSON();
-            currentTab = tab;
-            document.querySelectorAll('.tab').forEach((t, i) => t.classList.toggle('active', i === tab));
-            createCanvas();
-            loadMockup();
-            if (states[tab]) canvas.loadFromJSON(states[tab], () => canvas.renderAll());
-        }
+
+function switchTab(tab){
+
+    if(canvas){
+
+        states[currentTab] =
+            canvas.toJSON();
+
+    }
+
+    currentTab = tab;
+
+    document
+        .querySelectorAll('.tab')
+        .forEach((t,i)=>{
+
+            t.classList.toggle(
+                'active',
+                i === tab
+            );
+
+        });
+
+    createCanvas();
+
+    loadMockup();
+
+    if(states[tab]){
+
+        canvas.loadFromJSON(
+            states[tab],
+            ()=>canvas.renderAll()
+        );
+
+    }
+
+}
+
+      
 let products = [];
 async function loadProducts() {
     try {
@@ -352,6 +418,10 @@ async function loadProducts() {
         products.find(
             p => p.id === productId
         );
+
+currentProduct = product;
+
+     
     if (!product) {
         console.error(
             "Producto no encontrado:",
@@ -362,8 +432,12 @@ async function loadProducts() {
 showProductInfo(product);
 showProductOptions(product);  
 
+const editor =
+    product.editores[currentTab];
+
 fabric.Image.fromURL(
-    product.mockupMedidas || product.mockup,
+    editor.preview,
+    
         function(img) {
             img.scaleToWidth(550);
             img.selectable = false;
