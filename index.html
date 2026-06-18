@@ -473,15 +473,19 @@ function showProductInfo(product){
         html += "</ul>";
     }
 
-    if(product.estuches){
-        html += `
-            <p>
-                <strong>Colores de estuche:</strong>
-                ${product.estuches.join(", ")}
-            </p>
-        `;
-    }
+    if(
+    product.estuches &&
+    !product.id.includes("chapita")
+){
+    html += `
+        <p>
+            <strong>Colores de estuche:</strong>
+            ${product.estuches.join(", ")}
+        </p>
+    `;
+}
 
+    
     html += `
         <p><strong>Área de grabado:</strong></p>
         <ul>
