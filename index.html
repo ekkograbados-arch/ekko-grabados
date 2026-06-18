@@ -599,6 +599,33 @@ function showProductOptions(product){
     if(product.id.includes("chapita")){
         actualizarOpcionesChapita();
     }
+
+// PRODUCTOS CON COLORES
+if(product.colores){
+
+    html += `
+    <h3>Opciones</h3>
+
+    <label>Color</label>
+
+    <select id="colorProducto">
+    `;
+
+    product.colores.forEach(color => {
+
+        html += `
+        <option value="${color}">
+            ${color}
+        </option>
+        `;
+
+    });
+
+    html += `
+    </select>
+    `;
+}
+
 }
 
     function actualizarOpcionesChapita(){
