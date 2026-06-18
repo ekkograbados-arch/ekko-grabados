@@ -33,7 +33,7 @@
 ],
 
 "mockup": "mockups/medalla-militar.png",
-"mockupMedidas": "mockups-medidas/medalla-militar-25x45.png"
+"mockupMedidas": "mockups-medidas/medalla-militar-25x45.png",
  
   
   "editor": {
@@ -78,7 +78,7 @@
 ],
 
 "mockup": "mockups/medalla-militar.png",
-"mockupMedidas": "mockups-medidas/medalla-militar-29x50.png"
+"mockupMedidas": "mockups-medidas/medalla-militar-29x50.png",
 
 
   "editor": {
@@ -121,7 +121,7 @@
 ],
 
 "mockup": "mockups/medalla-redonda-25mm.svg",
-"mockupMedidas": "mockups-medidas/medalla-redonda-25mm.png"
+"mockupMedidas": "mockups-medidas/medalla-redonda-25mm.png",
 
 "editor": {
   "svg": "mockups-medidas/medalla-redonda-25mm.svg",
@@ -163,7 +163,7 @@
   }
 ],
 
-"mockupMedidas": "mockups-medidas/chapita-huesito-16x32.png"
+"mockupMedidas": "mockups-medidas/chapita-huesito-16x32.png",
   
   "editor": {
   "svg": "mockups-medidas/chapita-huesito-16x32.svg",
@@ -206,7 +206,7 @@
   }
 ],
 
-"mockupMedidas": "mockups-medidas/chapita-huesito-21x40.png"
+"mockupMedidas": "mockups-medidas/chapita-huesito-21x40.png",
  
   
   
@@ -245,7 +245,7 @@
 ],
 
 "mockup": "mockups/mate-acero.svg",
-"mockupMedidas": "mockups-medidas/mate-acero.png"
+"mockupMedidas": "mockups-medidas/mate-acero.png",
 
 "editor": {
   "svg": "mockups-medidas/mate-acero.svg",
@@ -276,7 +276,7 @@
   }
 ],
 
-"mockupMedidas": "mockups-medidas/mate-algarrobo-sin-virola.png"
+"mockupMedidas": "mockups-medidas/mate-algarrobo-sin-virola.png",
 
 "editor": {
   "svg": "mockups-medidas/mate-algarrobo-sin-virola.svg",
@@ -314,7 +314,7 @@
 ],
 
 "mockupMedidas": "mockups-medidas/mate-de-algarrobo-con-virola.png",
-"mockupVirola": "mockups-medidas/virola-mate-de-algarrobo-con-virola.png"
+"mockupVirola": "mockups-medidas/virola-mate-de-algarrobo-con-virola.png",
 
 "editor": {
   "svg": "mockups-medidas/mate-de-algarrobo-con-virola.svg",
@@ -358,9 +358,9 @@
   }
 ],
 
-"mockupMedidas": "mockups-medidas/pulsera-chica-5x30-dorso.png"
+"mockupMedidas": "mockups-medidas/pulsera-chica-5x30-dorso.png",
 "mockupMedidas": "mockups-medidas/pulsera-chica-5x30-frente.png"
- 
+ ,
   
   "editor": {
   "svg": "mockups-medidas/pulsera-chica-5x30-dorso.svg",
@@ -403,8 +403,8 @@
   }
 ],
 
-"mockupMedidas": "mockups-medidas/pulsera-grande-6x35-frente.png"
- "mockupMedidas": "mockups-medidas/pulsera-grande-6x35-dorso.png"
+"mockupMedidas": "mockups-medidas/pulsera-grande-6x35-frente.png",
+ "mockupMedidas": "mockups-medidas/pulsera-grande-6x35-dorso.png",
 
   
   "editor": {
