@@ -357,7 +357,12 @@
 
 "superficies": [
   {
-    "nombre": "Exterior",
+    "nombre": "Frente",
+    "ancho_mm": 4,
+    "alto_mm": 20
+  },
+  {
+    "nombre": "Dorso",
     "ancho_mm": 4,
     "alto_mm": 20
   }
@@ -396,12 +401,17 @@
 
 "superficies": [
   {
-    "nombre": "Exterior",
+    "nombre": "Frente",
+    "ancho_mm": 5,
+    "alto_mm": 25
+  },
+  {
+    "nombre": "Dorso",
     "ancho_mm": 5,
     "alto_mm": 25
   }
 ],
- 
+  
 "editores": [
   {
     "nombre": "Frente",
