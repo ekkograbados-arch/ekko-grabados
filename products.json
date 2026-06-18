@@ -31,11 +31,7 @@
     "alto_mm": 40
   }
 ],
-
-"mockup": "mockups/medalla-militar.png",
-"mockupMedidas": "mockups-medidas/medalla-militar-25x45.png",
  
-  
  "editores": [
   {
     "nombre": "Frente",
@@ -84,10 +80,7 @@
   }
 ],
 
-"mockup": "mockups/medalla-militar.png",
-"mockupMedidas": "mockups-medidas/medalla-militar-29x50.png",
-
- "editores": [
+"editores": [
   {
     "nombre": "Frente",
     "svg": "mockups-medidas/medalla-militar-29x50.svg",
@@ -132,9 +125,6 @@
     "diametro_mm": 24.5
   }
 ],
-
-"mockup": "mockups/medalla-redonda-25mm.svg",
-"mockupMedidas": "mockups-medidas/medalla-redonda-25mm.png",
 
 "editores": [
   {
@@ -183,10 +173,7 @@
     "alto_mm": 20
   }
 ],
-  
-"mockupMedidas": "mockups-medidas/chapita-huesito-16x32.svg",
-"mockupMedidas": "mockups-medidas/chapita-huesito-16x32.png",
-  
+   
 "editores": [
   {
     "nombre": "Frente",
@@ -232,10 +219,6 @@
     "alto_mm": 32
   }
 ],
-  
-"mockupMedidas": "mockups-medidas/chapita-huesito-21x40.svg",
-"mockupMedidas": "mockups-medidas/chapita-huesito-21x40.png",
- 
   "editores": [
   {
     "nombre": "Frente",
@@ -275,9 +258,6 @@
   }
 ],
 
-"mockupMedidas": "mockups-medidas/mate-acero.svg",
-"mockupMedidas": "mockups-medidas/mate-acero.png",
-
 "editores": [
   {
     "nombre": "Cuerpo",
@@ -306,13 +286,11 @@
     "alto_mm": 240
   }
 ],
-"mockupMedidas": "mockups-medidas/mate-algarrobo-sin-virola.svg",
-"mockupMedidas": "mockups-medidas/mate-algarrobo-sin-virola.png",
 
 "editores": [
   {
     "nombre": "Cuerpo",
-    "svg": "mockups-medidas/mate-algarrobo-sin-virolao.svg",
+    "svg": "mockups-medidas/mate-algarrobo-sin-virola.svg",
     "preview": "mockups-medidas/mate-algarrobo-sin-virola.png"
   }
 ]
@@ -343,10 +321,6 @@
     "diametro_interior_mm": 60
   }
 ],
-"mockupMedidas": "mockups-medidas/mate-de-algarrobo-con-virola.svg",
-"mockupMedidas": "mockups-medidas/virola-mate-de-algarrobo-con-virola.svg",
-"mockupMedidas": "mockups-medidas/mate-de-algarrobo-con-virola.png",
-"mockupMedidas": "mockups-medidas/virola-mate-de-algarrobo-con-virola.png",
 
 "editores": [
   {
@@ -388,11 +362,7 @@
     "alto_mm": 20
   }
 ],
-"mockupMedidas": "mockups-medidas/pulsera-chica-5x30-dorso.svg",
-"mockupMedidas": "mockups-medidas/pulsera-chica-5x30-frente.svg",
-"mockupMedidas": "mockups-medidas/pulsera-chica-5x30-dorso.png",
-"mockupMedidas": "mockups-medidas/pulsera-chica-5x30-frente.png",
-  
+
  "editores": [
   {
     "nombre": "Frente",
@@ -431,12 +401,7 @@
     "alto_mm": 25
   }
 ],
-"mockupMedidas": "mockups-medidas/pulsera-grande-6x35-frente.svg",
- "mockupMedidas": "mockups-medidas/pulsera-grande-6x35-dorso.svg",
-"mockupMedidas": "mockups-medidas/pulsera-grande-6x35-frente.png",
- "mockupMedidas": "mockups-medidas/pulsera-grande-6x35-dorso.png",
-
-  
+ 
 "editores": [
   {
     "nombre": "Frente",
