@@ -36,13 +36,18 @@
 "mockupMedidas": "mockups-medidas/medalla-militar-25x45.png",
  
   
-  "editor": {
-  "svg": "mockups-medidas/medalla-militar-25x45.svg",
-  "preview": {
-    "tipo": "flat",
-    "imagen": "mockups-medidas/medalla-militar-25x45.png"
+ "editores": [
+  {
+    "nombre": "Frente",
+    "svg": "mockups-medidas/medalla-militar-25x45.svg",
+    "preview": "mockups-medidas/medalla-militar-25x45.png"
+  },
+  {
+    "nombre": "Dorso",
+    "svg": "mockups-medidas/medalla-militar-25x45.svg",
+    "preview": "mockups-medidas/medalla-militar-25x45.png"
   }
-}
+]
 },
 
 {
@@ -81,13 +86,18 @@
 "mockupMedidas": "mockups-medidas/medalla-militar-29x50.png",
 
 
-  "editor": {
-  "svg": "mockups-medidas/medalla-militar-29x50.svg",
-  "preview": {
-    "tipo": "flat",
-    "imagen": "mockups-medidas/medalla-militar-29x50.png"
+ "editores": [
+  {
+    "nombre": "Frente",
+    "svg": "mockups-medidas/medalla-militar-29x50.svg",
+    "preview": "mockups-medidas/medalla-militar-29x50.png"
+  },
+  {
+    "nombre": "Dorso",
+    "svg": "mockups-medidas/medalla-militar-29x50.svg",
+    "preview": "mockups-medidas/medalla-militar-29x50.png"
   }
-}
+]
 },
 
 {
@@ -123,14 +133,18 @@
 "mockup": "mockups/medalla-redonda-25mm.svg",
 "mockupMedidas": "mockups-medidas/medalla-redonda-25mm.png",
 
-"editor": {
-  "svg": "mockups-medidas/medalla-redonda-25mm.svg",
-  "preview": {
-    "tipo": "flat",
-    "imagen": "mockups-medidas/medalla-redonda-25mm.png"
+"editores": [
+  {
+    "nombre": "Frente",
+    "svg": "mockups-medidas/medalla-redonda-25mm.svg",
+    "preview": "mockups-medidas/medalla-redonda-25mm.png"
+  },
+  {
+    "nombre": "Dorso",
+    "svg": "mockups-medidas/medalla-redonda-25mm.svg",
+    "preview": "mockups-medidas/medalla-redonda-25mm.png"
   }
-}
-  
+]
 },
 
 {
@@ -165,13 +179,18 @@
 
 "mockupMedidas": "mockups-medidas/chapita-huesito-16x32.png",
   
-  "editor": {
-  "svg": "mockups-medidas/chapita-huesito-16x32.svg",
-  "preview": {
-    "tipo": "flat",
-    "imagen": "mockups-medidas/chapita-huesito-16x32.png"
+"editores": [
+  {
+    "nombre": "Frente",
+    "svg": "mockups-medidas/chapita-huesito-16x32.svg",
+    "preview": "mockups-medidas/chapita-huesito-16x32.png"
+  },
+  {
+    "nombre": "Dorso",
+    "svg": "mockups-medidas/chapita-huesito-16x32.svg",
+    "preview": "mockups-medidas/chapita-huesito-16x32.png"
   }
-}
+]
 },
 
 
@@ -208,15 +227,18 @@
 
 "mockupMedidas": "mockups-medidas/chapita-huesito-21x40.png",
  
-  
-  
-  "editor": {
-  "svg": "mockups-medidas/chapita-huesito-21x40.svg",
-  "preview": {
-    "tipo": "flat",
-    "imagen": "mockups-medidas/chapita-huesito-21x40.png"
+  "editores": [
+  {
+    "nombre": "Frente",
+    "svg": "mockups-medidas/chapita-huesito-21x40.svg",
+    "preview": "mockups-medidas/chapita-huesito-21x40.png"
+  },
+  {
+    "nombre": "Dorso",
+    "svg": "mockups-medidas/chapita-huesito-21x40.svg",
+    "preview": "mockups-medidas/chapita-huesito-21x40.png"
   }
-}
+]
 },
 
 
@@ -244,20 +266,19 @@
   }
 ],
 
-"mockup": "mockups/mate-acero.svg",
+"mockupMedidas": "mockups-medidas/mate-acero.svg",
 "mockupMedidas": "mockups-medidas/mate-acero.png",
 
-"editor": {
-  "svg": "mockups-medidas/mate-acero.svg",
-  "preview": {
-    "tipo": "flat",
-    "imagen": "mockups-medidas/mate-acero.png"
+"editores": [
+  {
+    "nombre": "Cuerpo",
+    "svg": "mockups-medidas/mate-acero.svg",
+    "preview": "mockups-medidas/mate-acero.png"
   }
-}
-
-  
+]
 },
 
+  
 {
 "id": "mate-algarrobo-sin-virola",
 "nombre": "Mate Algarrobo Sin Virola",
@@ -275,18 +296,16 @@
     "alto_mm": 240
   }
 ],
-
+"mockupMedidas": "mockups-medidas/mate-algarrobo-sin-virola.svg",
 "mockupMedidas": "mockups-medidas/mate-algarrobo-sin-virola.png",
 
-"editor": {
-  "svg": "mockups-medidas/mate-algarrobo-sin-virola.svg",
-  "preview": {
-    "tipo": "flat",
-    "imagen": "mockups-medidas/mate-algarrobo-sin-virola.png"
+"editores": [
+  {
+    "nombre": "Cuerpo",
+    "svg": "mockups-medidas/mate-algarrobo-sin-virolao.svg",
+    "preview": "mockups-medidas/mate-algarrobo-sin-virola.png"
   }
-}
-
-  
+]
 },
 
 {
@@ -312,24 +331,23 @@
     "diametro_interior_mm": 60
   }
 ],
-
+"mockupMedidas": "mockups-medidas/mate-de-algarrobo-con-virola.svg",
+"mockupMedidas": "mockups-medidas/virola-mate-de-algarrobo-con-virola.svg",
 "mockupMedidas": "mockups-medidas/mate-de-algarrobo-con-virola.png",
-"mockupVirola": "mockups-medidas/virola-mate-de-algarrobo-con-virola.png",
+"mockupMedidas": "mockups-medidas/virola-mate-de-algarrobo-con-virola.png",
 
-"editor": {
-  "svg": "mockups-medidas/mate-de-algarrobo-con-virola.svg",
-  "preview": {
-    "tipo": "flat",
-    "imagen": "mockups-medidas/mate-de-algarrobo-con-virola.png"
+"editores": [
+  {
+    "nombre": "Cuerpo",
+    "svg": "mockups-medidas/mate-de-algarrobo-con-virola.svg",
+    "preview": "mockups-medidas/mate-de-algarrobo-con-virola.png"
+  },
+  {
+    "nombre": "Virola",
+    "svg": "mockups-medidas/virola-mate-de-algarrobo-con-virola.svg",
+    "preview": "mockups-medidas/virola-mate-de-algarrobo-con-virola.png"
   }
-}
-"editor": {
-  "svg": "mockups-medidas/virola-mate-de-algarrobo-con-virola.svg",
-  "preview": {
-    "tipo": "flat",
-    "imagen": "mockups-medidas/virola-mate-de-algarrobo-con-virola.png"
-  }
-}
+]
   
 },
 
@@ -357,25 +375,23 @@
     "alto_mm": 20
   }
 ],
-
+"mockupMedidas": "mockups-medidas/pulsera-chica-5x30-dorso.svg",
+"mockupMedidas": "mockups-medidas/pulsera-chica-5x30-frente.svg",
 "mockupMedidas": "mockups-medidas/pulsera-chica-5x30-dorso.png",
-"mockupMedidas": "mockups-medidas/pulsera-chica-5x30-frente.png"
- ,
+"mockupMedidas": "mockups-medidas/pulsera-chica-5x30-frente.png",
   
-  "editor": {
-  "svg": "mockups-medidas/pulsera-chica-5x30-dorso.svg",
-  "preview": {
-    "tipo": "flat",
-    "imagen": "mockups-medidas/pulsera-chica-5x30-dorso.png"
+ "editores": [
+  {
+    "nombre": "Frente",
+    "svg": "mockups-medidas/pulsera-chica-5x30-frente.svg",
+    "preview": "mockups-medidas/pulsera-chica-5x30-frente.png"
+  },
+  {
+    "nombre": "Dorso",
+    "svg": "mockups-medidas/pulsera-chica-5x30-dorso.svg",
+    "preview": "mockups-medidas/pulsera-chica-5x30-dorso.png"
   }
-}
-    "editor": {
-  "svg": "mockups-medidas/pulsera-chica-5x30-frente.svg",
-  "preview": {
-    "tipo": "flat",
-    "imagen": "mockups-medidas/pulsera-chica-5x30-frente.png"
-  }
-}
+]
 },
 
 {
@@ -402,24 +418,23 @@
     "alto_mm": 25
   }
 ],
-
+"mockupMedidas": "mockups-medidas/pulsera-grande-6x35-frente.svg",
+ "mockupMedidas": "mockups-medidas/pulsera-grande-6x35-dorso.svg",
 "mockupMedidas": "mockups-medidas/pulsera-grande-6x35-frente.png",
  "mockupMedidas": "mockups-medidas/pulsera-grande-6x35-dorso.png",
 
   
-  "editor": {
-  "svg": "mockups-medidas/pulsera-grande-6x35-dorso.svg",
-  "preview": {
-    "tipo": "flat",
-    "imagen": "mockups-medidas/pulsera-grande-6x35-dorso.png"
+"editores": [
+  {
+    "nombre": "Frente",
+    "svg": "mockups-medidas/pulsera-grande-6x35-frente.svg",
+    "preview": "mockups-medidas/pulsera-grande-6x35-frente.png"
+  },
+  {
+    "nombre": "Dorso",
+    "svg": "mockups-medidas/pulsera-grande-6x35-dorso.svg",
+    "preview": "mockups-medidas/pulsera-grande-6x35-dorso.png"
   }
-}
-    "editor": {
-  "svg": "mockups-medidas/pulsera-grande-6x35-frente.svg",
-  "preview": {
-    "tipo": "flat",
-    "imagen": "mockups-medidas/pulsera-grande-6x35-frente.png"
-  }
-}
+]
 }
 ]
