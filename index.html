@@ -623,16 +623,7 @@ function showProductOptions(product){
         `;
     }
 
-    if(product.colores){
-   opcionesHTML += `
-      <label>Color del Mate</label>
-      <select id="colorProducto">
-         ${product.colores.map(c =>
-            `<option value="${c}">${c}</option>`
-         ).join("")}
-      </select>
-   `;
-}
+  
     document.getElementById(
         "productOptions"
     ).innerHTML = html;
@@ -643,28 +634,14 @@ function showProductOptions(product){
 
 // PRODUCTOS CON COLORES
 if(product.colores){
-
-    html += `
-    <h3>Opciones</h3>
-
-    <label>Color</label>
-
-    <select id="colorProducto">
-    `;
-
-    product.colores.forEach(color => {
-
-        html += `
-        <option value="${color}">
-            ${color}
-        </option>
-        `;
-
-    });
-
-    html += `
-    </select>
-    `;
+   opcionesHTML += `
+      <label>Color del Mate</label>
+      <select id="colorProducto">
+         ${product.colores.map(c =>
+            `<option value="${c}">${c}</option>`
+         ).join("")}
+      </select>
+   `;
 }
 
 if(product.id.includes("medalla")){
