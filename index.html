@@ -431,7 +431,7 @@ currentProduct = product;
     }
 showProductInfo(product);
 showProductOptions(product);  
-
+buildTabs(product);
 const editor =
     product.editores[currentTab];
 
@@ -780,6 +780,36 @@ if(product.id.includes("medalla")){
         }
     );
 }
+
+function buildTabs(product){
+
+    const container =
+        document.getElementById("tabsContainer");
+
+    container.innerHTML = "";
+
+    product.editores.forEach((editor,index)=>{
+
+        const btn =
+            document.createElement("button");
+
+        btn.className =
+            index === 0
+            ? "tab active"
+            : "tab";
+
+        btn.textContent =
+            editor.nombre;
+
+        btn.onclick =
+            () => switchTab(index);
+
+        container.appendChild(btn);
+
+    });
+
+}
+      
         async function addQR() {
             let url = document.getElementById('qrLink').value.trim();
             if (!url) return alert("Ingresa un enlace");
