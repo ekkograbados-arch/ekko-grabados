@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Personalizador Grabado Láser</title>
+    <title>Personalizador Grabado Láser EKKO</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.1/fabric.min.js"></script>
     <style>
         body { font-family: Arial, sans-serif; margin:0; padding:20px; background:#f4f4f4; }
@@ -121,6 +121,9 @@
     border:1px solid #ccc;
 
 } 
+
+
+//////////////////////ESTILOS
     </style>
 </head>
 <body>
@@ -132,28 +135,30 @@
     <p>
         Diseñá tu grabado online y visualizalo antes de realizar tu pedido.
     </p>
-    <div class="beneficios">
-        <span>🚚 Envíos a todo el país</span>
-        <span>💳 Cuotas disponibles</span>
-        <span>🎁 Diseños personalizados para regalar</span>
-        <span>⚡ Contactos</span>
-    </div>
-<section class="galeria">
-    <h2>❤️ Diseños personalizados para regalar</h2>
-    <div class="grid-galeria">
-        <img src="ejemplos/CADENAS-BEBE-MATEO.png" alt="">
-        <img src="ejemplos/CHAPITA-BEBE-00.png" alt="">
-        <img src="ejemplos/CHAPITA-BEBE-01.png" alt="">
-        <img src="ejemplos/CHAPITA-BEBE-02.png" alt="">
-        <img src="ejemplos/CHAPITA-BEBE-03.png" alt="">
-        <img src="ejemplos/CHAPITA-BEBE-MATEO.png" alt="">
-        <img src="ejemplos/CHAPITA-BEBE-SOFIA.png" alt="">
-    </div>
-</section>
-</div>
-        
+       <div class="beneficios">
+                <span>🚚 Envíos a todo el país</span>
+                <span>💳 Cuotas disponibles</span>
+                <span>🎁 Diseños personalizados para regalar</span>
+                <span>⚡ Contactos</span>
+            </div>
+            <section class="galeria">
+                <h2>❤️ Diseños personalizados para regalar</h2>
+      
+        <div class="grid-galeria">
+            <img src="ejemplos/CADENAS-BEBE-MATEO.png" alt="">
+            <img src="ejemplos/CHAPITA-BEBE-00.png" alt="">
+            <img src="ejemplos/CHAPITA-BEBE-01.png" alt="">
+            <img src="ejemplos/CHAPITA-BEBE-02.png" alt="">
+            <img src="ejemplos/CHAPITA-BEBE-03.png" alt="">
+            <img src="ejemplos/CHAPITA-BEBE-MATEO.png" alt="">
+            <img src="ejemplos/CHAPITA-BEBE-SOFIA.png" alt="">
+        </div>
+
+                        
+        </section>
+        </div>
         <div class="tabs" id="editorTabs">
-</div>
+        </div>
 
 <div class="tabs"></div>
         
@@ -237,12 +242,10 @@ function generateTabs(product){
 }
 
 
-      
+/////////FUENTES
     let canvas = null;
     let workAreaGuide = null;
         const customFonts = [
-            { name: "Arial", family: "Arial" },
-            { name: "Times New Roman", family: "Times New Roman" },
             { name: "Waltograph", family: "Waltograph", url: "https://raw.githubusercontent.com/ekkograbados-arch/personalizador-laser/fa3023b254c729ef41d870b84bfeab70dc5c5d54/fonts/waltograph42.otf" },
             { name: "Billie James", family: "Billie James", url: "https://raw.githubusercontent.com/ekkograbados-arch/personalizador-laser/52f9231774d61702e7c82447a21d254229e7b7f3/fonts/BillieJames-Regular.ttf" },
             { name: "Breathing", family: "Breathing", url: "https://raw.githubusercontent.com/ekkograbados-arch/personalizador-laser/52f9231774d61702e7c82447a21d254229e7b7f3/fonts/Breathing%20Personal%20Use%20Only.ttf" },
@@ -261,8 +264,6 @@ function generateTabs(product){
             { name: "Study Person", family: "Study Person", url: "https://raw.githubusercontent.com/ekkograbados-arch/personalizador-laser/52f9231774d61702e7c82447a21d254229e7b7f3/fonts/Study%20Person.otf" }
         ];
  
-
-
 
       
 const productInfo = {
@@ -442,6 +443,8 @@ function createDynamicTabs(product) {
     });
 }
       
+
+      
 function loadMockup() {
 
     const productId =
@@ -564,124 +567,105 @@ function showProductInfo(product){
 
 function showProductOptions(product){
 
-    let html = "";
+    let html = "<h3>Opciones</h3>";
 
-    // CHAPITAS PARA MASCOTAS
+    // ==========================
+    // CHAPITAS
+    // ==========================
     if(product.id.includes("chapita")){
 
         html += `
-        <h3>Opciones</h3>
+            <label>Accesorio</label>
 
-        <label>Accesorio</label>
+            <select
+                id="accesorioChapita"
+                onchange="actualizarOpcionesChapita()"
+            >
+                <option value="argolla">
+                    Argolla estándar
+                </option>
 
-        <select
-            id="accesorioChapita"
-            onchange="actualizarOpcionesChapita()"
-        >
+                <option value="llavero">
+                    Llavero + Estuche
+                </option>
 
-            <option value="argolla">
-                Argolla estándar
-            </option>
+                <option value="cadena">
+                    Cadena + Estuche
+                </option>
 
-            <option value="llavero">
-                Llavero + Estuche
-            </option>
+            </select>
 
-            <option value="cadena">
-                Cadena + Estuche
-            </option>
-
-        </select>
-
-        <div id="opcionesEstuche"></div>
+            <div id="opcionesEstuche"></div>
         `;
     }
 
-    // RESTO DE PRODUCTOS CON ESTUCHE
-    else if(product.estuches){
+    // ==========================
+    // MEDALLAS
+    // ==========================
+    else if(product.id.includes("medalla")){
 
         html += `
-        <h3>Opciones</h3>
+            <label>Accesorio</label>
 
-        <label>Color de Estuche</label>
-
-        <select id="colorEstuche">
+            <select id="accesorioMedalla">
         `;
 
-        product.estuches.forEach(color => {
+        product.opciones.forEach(op => {
 
             html += `
-            <option value="${color}">
-                ${color}
-            </option>
+                <option value="${op}">
+                    ${op}
+                </option>
             `;
 
         });
 
         html += `
-        </select>
-        `;
-    }
-
-  
-    document.getElementById(
-        "productOptions"
-    ).innerHTML = html;
-
-    if(product.id.includes("chapita")){
-        actualizarOpcionesChapita();
-    }
-
-// PRODUCTOS CON COLORES
-if(product.colores){
-   opcionesHTML += `
-      <label>Color del Mate</label>
-      <select id="colorProducto">
-         ${product.colores.map(c =>
-            `<option value="${c}">${c}</option>`
-         ).join("")}
-      </select>
-   `;
-}
-
-if(product.id.includes("medalla")){
-
-    html += `
-        <h3>Opciones</h3>
-
-        <label>Accesorio</label>
-
-        <select id="accesorioMedalla">
-    `;
-
-    product.opciones.forEach(op => {
-
-        html += `
-            <option value="${op}">
-                ${op}
-            </option>
+            </select>
         `;
 
-    });
-
-    html += `
-        </select>
-    `;
-
-    if(product.estuches){
-
-        html += `
-            <br>
-
-            <label>Color de Estuche</label>
-
-            <select id="colorEstuche">
-        `;
-
-        product.estuches.forEach(color => {
+        if(product.estuches){
 
             html += `
-                <option>
+                <br><br>
+
+                <label>Color de Estuche</label>
+
+                <select id="colorEstuche">
+            `;
+
+            product.estuches.forEach(color => {
+
+                html += `
+                    <option value="${color}">
+                        ${color}
+                    </option>
+                `;
+
+            });
+
+            html += `
+                </select>
+            `;
+        }
+    }
+
+    // ==========================
+    // PRODUCTOS CON COLORES
+    // (Mate acero)
+    // ==========================
+    else if(product.colores){
+
+        html += `
+            <label>Color del Mate</label>
+
+            <select id="colorProducto">
+        `;
+
+        product.colores.forEach(color => {
+
+            html += `
+                <option value="${color}">
                     ${color}
                 </option>
             `;
@@ -693,10 +677,40 @@ if(product.id.includes("medalla")){
         `;
     }
 
+    // ==========================
+    // PULSERAS Y OTROS
+    // ==========================
+    else if(product.estuches){
 
-    
-}
-    
+        html += `
+            <label>Color de Estuche</label>
+
+            <select id="colorEstuche">
+        `;
+
+        product.estuches.forEach(color => {
+
+            html += `
+                <option value="${color}">
+                    ${color}
+                </option>
+            `;
+
+        });
+
+        html += `
+            </select>
+        `;
+    }
+
+    document.getElementById(
+        "productOptions"
+    ).innerHTML = html;
+
+    if(product.id.includes("chapita")){
+        actualizarOpcionesChapita();
+    }
+
 }
 
     function actualizarOpcionesChapita(){
