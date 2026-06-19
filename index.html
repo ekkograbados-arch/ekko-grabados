@@ -922,13 +922,28 @@ function buildTabs(product){
     }
 }
       window.onload = async () => {
+
     loadCustomFonts();
+
     createCanvas();
+
     canvas.setBackgroundColor(
         '#ffffff',
         canvas.renderAll.bind(canvas)
     );
+
     await loadProducts();
+
+    const { data, error } =
+        await supabase
+            .from('productos')
+            .select('*');
+
+    console.log(
+        "PRODUCTOS SUPABASE:",
+        data
+    );
+
 };
     </script>
 <footer class="footer-ekko">
