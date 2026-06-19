@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Personalizador Grabado Láser EKKO</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.1/fabric.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         body { font-family: Arial, sans-serif; margin:0; padding:20px; background:#f4f4f4; }
         .container { max-width:1400px; margin:0 auto; background:white; padding:20px; border-radius:10px; box-shadow:0 0 15px rgba(0,0,0,0.1); }
@@ -205,8 +206,21 @@
             </div>
         </div>
     </div>
-  <script>
 
+    
+    
+    <script>
+const SUPABASE_URL =
+'https://rxywcvouszorhkbfllxl.supabase.co';
+
+const SUPABASE_KEY =
+'sb_publishable_Vee3v8DDrKSi9R1glQazSw_AMVts3OQ';
+
+const supabase =
+window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+);
 let states = {};
 let currentTab = 0;
 let currentProduct = null;
@@ -382,32 +396,58 @@ function switchTab(tab){
 
       
 let products = [];
+async function loadProductsBackup() 
 async function loadProducts() {
+
     try {
-        const response =
-            await fetch('products.json');
-        products =
-            await response.json();
+
+        const {
+            data,
+            error
+        } = await supabase
+            .from('productos')
+            .select('*')
+            .eq('activo', true)
+            .order('nombre');
+
+        if(error) throw error;
+
+        products = data;
+
         const select =
-            document.getElementById('productSelect');
+            document.getElementById(
+                'productSelect'
+            );
+
         select.innerHTML = '';
+
         products.forEach(product => {
+
             const option =
                 document.createElement('option');
+
             option.value =
                 product.id;
+
             option.textContent =
                 product.nombre;
+
             select.appendChild(option);
+
         });
+
         loadMockup();
+
     }
-    catch(error) {
+    catch(err){
+
         console.error(
-            "Error cargando products.json",
-            error
+            "SUPABASE ERROR:",
+            err
         );
+
     }
+
 }
         document
 .getElementById('productSelect')
