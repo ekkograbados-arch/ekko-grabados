@@ -124,6 +124,7 @@
     </style>
 </head>
 <body>
+    
     <div class="container">
      <div class="hero">
     <img src="logo.png" class="logo" alt="EKKO Grabados">
@@ -153,6 +154,8 @@
         
         <div class="tabs" id="editorTabs">
 </div>
+
+<div class="tabs"></div>
         
         <div class="main">
             <div class="canvas-wrapper">
@@ -411,50 +414,89 @@ async function loadProducts() {
     'change',
     loadMockup
 );
- function loadMockup() {
+
+
+function createDynamicTabs(product) {
+
+    const tabsContainer =
+        document.querySelector(".tabs");
+
+    tabsContainer.innerHTML = "";
+
+    product.editores.forEach((editor,index)=>{
+
+        const btn =
+            document.createElement("button");
+
+        btn.className =
+            "tab" +
+            (index===currentTab ? " active" : "");
+
+        btn.textContent =
+            editor.nombre;
+
+        btn.onclick =
+            ()=>switchTab(index);
+
+        tabsContainer.appendChild(btn);
+    });
+}
+      
+function loadMockup() {
+
     const productId =
         document.getElementById('productSelect').value;
+
     const product =
-        products.find(
-            p => p.id === productId
-        );
+        products.find(p => p.id === productId);
 
-currentProduct = product;
-
-     
     if (!product) {
-        console.error(
-            "Producto no encontrado:",
-            productId
-        );
+        console.error("Producto no encontrado");
         return;
     }
-showProductInfo(product);
-showProductOptions(product);  
-buildTabs(product);
-const editor =
-    product.editores[currentTab];
 
-fabric.Image.fromURL(
-    editor.preview,
-    
+    if (!product.editores || !product.editores.length) {
+        console.error("El producto no tiene editores");
+        return;
+    }
+
+    createDynamicTabs(product);
+
+    const editor =
+        product.editores[currentTab] ||
+        product.editores[0];
+
+    if (!editor) {
+        console.error("Editor inexistente");
+        return;
+    }
+
+    showProductInfo(product);
+    showProductOptions(product);
+
+    fabric.Image.fromURL(
+        editor.preview,
         function(img) {
+
             img.scaleToWidth(550);
+
             img.selectable = false;
             img.evented = false;
+
             canvas.setBackgroundImage(
-    img,
-    function() {
-        drawWorkArea(product);
-        canvas.renderAll();
-    }
-);
+                img,
+                canvas.renderAll.bind(canvas)
+            );
+
         },
         {
             crossOrigin: 'anonymous'
         }
     );
 }
+
+
+      
 function showProductInfo(product){
 
     let html = `
