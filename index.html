@@ -626,6 +626,56 @@ if(product.colores){
     `;
 }
 
+if(product.id.includes("medalla")){
+
+    html += `
+        <h3>Opciones</h3>
+
+        <label>Accesorio</label>
+
+        <select id="accesorioMedalla">
+    `;
+
+    product.opciones.forEach(op => {
+
+        html += `
+            <option value="${op}">
+                ${op}
+            </option>
+        `;
+
+    });
+
+    html += `
+        </select>
+    `;
+
+    if(product.estuches){
+
+        html += `
+            <br>
+
+            <label>Color de Estuche</label>
+
+            <select id="colorEstuche">
+        `;
+
+        product.estuches.forEach(color => {
+
+            html += `
+                <option>
+                    ${color}
+                </option>
+            `;
+
+        });
+
+        html += `
+            </select>
+        `;
+    }
+}
+    
 }
 
     function actualizarOpcionesChapita(){
