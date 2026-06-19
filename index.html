@@ -716,6 +716,18 @@ if(product.id.includes("medalla")){
             </select>
         `;
     }
+
+if (product.colores && product.colores.length) {
+  opcionesHTML += `
+    <label>Color del Mate</label>
+    <select id="colorProducto">
+      ${product.colores.map(c =>
+        `<option value="${c}">${c}</option>`
+      ).join("")}
+    </select>
+  `;
+}
+    
 }
     
 }
