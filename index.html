@@ -515,18 +515,7 @@ function showProductInfo(product){
         html += "</ul>";
     }
 
-    if(
-    product.estuches &&
-    !product.id.includes("chapita")
-){
-    html += `
-        <p>
-            <strong>Colores de estuche:</strong>
-            ${product.estuches.join(", ")}
-        </p>
-    `;
-}
-
+   
     
     html += `
         <p><strong>Área de grabado:</strong></p>
@@ -634,6 +623,16 @@ function showProductOptions(product){
         `;
     }
 
+    if (product.colores && product.colores.length) {
+  opcionesHTML += `
+    <label>Color del Mate</label>
+    <select id="colorProducto">
+      ${product.colores.map(c =>
+        `<option value="${c}">${c}</option>`
+      ).join("")}
+    </select>
+  `;
+}
     document.getElementById(
         "productOptions"
     ).innerHTML = html;
@@ -717,16 +716,7 @@ if(product.id.includes("medalla")){
         `;
     }
 
-if (product.colores && product.colores.length) {
-  opcionesHTML += `
-    <label>Color del Mate</label>
-    <select id="colorProducto">
-      ${product.colores.map(c =>
-        `<option value="${c}">${c}</option>`
-      ).join("")}
-    </select>
-  `;
-}
+
     
 }
     
