@@ -31,7 +31,13 @@
     "alto_mm": 40
   }
 ],
- 
+
+
+"opciones": [
+  "Cadena",
+  "Llavero"
+]
+  
  "editores": [
   {
     "nombre": "Frente",
@@ -66,7 +72,7 @@
   "Bordó",
   "Azul"
 ],
-
+  
 "superficies": [
   {
     "nombre": "Frente",
@@ -80,6 +86,12 @@
   }
 ],
 
+
+"opciones": [
+  "Cadena",
+  "Llavero"
+]
+  
 "editores": [
   {
     "nombre": "Frente",
@@ -126,6 +138,12 @@
   }
 ],
 
+
+"opciones": [
+  "Cadena",
+  "Llavero"
+]
+  
 "editores": [
   {
     "nombre": "Frente",
@@ -252,7 +270,7 @@
 
 "superficies": [
   {
-    "nombre": "Cuerpo",
+    "nombre": "Mate",
     "ancho_mm": 65,
     "alto_mm": 227
   }
@@ -260,7 +278,7 @@
 
 "editores": [
   {
-    "nombre": "Cuerpo",
+    "nombre": "Mate",
     "svg": "mockups-medidas/mate-acero.svg",
     "preview": "mockups-medidas/mate-acero.png"
   }
@@ -281,7 +299,7 @@
 
 "superficies": [
   {
-    "nombre": "Cuerpo",
+    "nombre": "Mate",
     "ancho_mm": 70,
     "alto_mm": 240
   }
@@ -289,7 +307,7 @@
 
 "editores": [
   {
-    "nombre": "Cuerpo",
+    "nombre": "Mate",
     "svg": "mockups-medidas/mate-algarrobo-sin-virola.svg",
     "preview": "mockups-medidas/mate-algarrobo-sin-virola.png"
   }
@@ -310,7 +328,7 @@
 
 "superficies": [
   {
-    "nombre": "Cuerpo",
+    "nombre": "Mate",
     "ancho_mm": 75,
     "alto_mm": 300
   },
@@ -324,7 +342,7 @@
 
 "editores": [
   {
-    "nombre": "Cuerpo",
+    "nombre": "Mate",
     "svg": "mockups-medidas/mate-de-algarrobo-con-virola.svg",
     "preview": "mockups-medidas/mate-de-algarrobo-con-virola.png"
   },
