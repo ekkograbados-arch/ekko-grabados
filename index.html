@@ -161,7 +161,6 @@
         <div class="tabs" id="editorTabs">
         </div>
 
-<div class="tabs"></div>
         
         <div class="main">
             <div class="canvas-wrapper">
@@ -317,40 +316,44 @@ const productInfo = {
             if (canvas) canvas.dispose();
             canvas = new fabric.Canvas('canvas', { preserveObjectStacking: true, enableRetinaScaling: true });
         }
-function drawWorkArea(product) {
+
+        
+
+function drawWorkArea(editor) {
 
     if (workAreaGuide) {
+
         canvas.remove(workAreaGuide);
+
         workAreaGuide = null;
+
     }
 
-    if (!product.workArea) return;
+    if (!editor.superficie) return;
 
     workAreaGuide = new fabric.Rect({
-        left: product.workArea.x,
-        top: product.workArea.y,
-        width: product.workArea.width,
-        height: product.workArea.height,
+
+        left: editor.superficie.x,
+        top: editor.superficie.y,
+
+        width: editor.superficie.width,
+        height: editor.superficie.height,
+
         fill: 'rgba(0,0,0,0)',
+
         stroke: '#ff0000',
         strokeWidth: 2,
+
         strokeDashArray: [8,5],
+
         selectable: false,
         evented: false,
+
         excludeFromExport: true
+
     });
 
     canvas.add(workAreaGuide);
-
-    const clipRect = new fabric.Rect({
-        left: product.workArea.x,
-        top: product.workArea.y,
-        width: product.workArea.width,
-        height: product.workArea.height,
-        absolutePositioned: true
-    });
-
-    canvas.clipPath = clipRect;
 
     workAreaGuide.bringToFront();
 
@@ -379,9 +382,14 @@ function switchTab(tab){
 
         });
 
-    createCanvas();
+   createCanvas();
 
-    loadMockup();
+canvas.setBackgroundColor(
+    '#ffffff',
+    canvas.renderAll.bind(canvas)
+);
+
+loadMockup();
 
     if(states[tab]){
 
@@ -453,14 +461,20 @@ async function loadProducts() {
 .getElementById('productSelect')
 .addEventListener(
     'change',
-    loadMockup
+    () => {
+
+        currentTab = 0;
+        states = {};
+
+        loadMockup();
+
+    }
 );
-
-
+        
 function createDynamicTabs(product) {
 
     const tabsContainer =
-        document.querySelector(".tabs");
+        document.getElementById("editorTabs");
 
     tabsContainer.innerHTML = "";
 
@@ -508,6 +522,8 @@ function loadMockup() {
     const editor =
         product.editores[currentTab] ||
         product.editores[0];
+    
+    currentProduct = product;
 
     if (!editor) {
         console.error("Editor inexistente");
@@ -516,6 +532,7 @@ function loadMockup() {
 
     showProductInfo(product);
     showProductOptions(product);
+    drawWorkArea(editor);
 
     fabric.Image.fromURL(
         editor.preview,
